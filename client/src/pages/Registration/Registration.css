@@ -1,0 +1,140 @@
+.registration-container {
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.registration {
+    width: 500px;
+    height: 650px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    border-radius: 10px;
+    background-color: var(--auth-container-color);
+
+}
+
+.registration-header {
+    width: 80%;
+    height: 120px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border-bottom: 1px solid;
+
+}
+
+.registration-header .logo {
+    width: 100px;
+    height: 100px;
+    transition: all .5s ease-in-out;
+    
+}
+
+.registration-fields {
+    width: 80%;
+    height: 400px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+
+    
+}
+
+
+.registration-fields .group {
+    display: flex;
+    gap: 20px;
+}
+
+.registration-fields .field {
+    width: 100%;
+    height: 60px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.registration-fields .gender-group {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+   
+}
+
+.registration-fields .gender-group .gender-field {
+    width: 120px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    border: 1px solid;
+    border-radius: 5px;
+}
+
+.registration-fields .field input[type='text'],
+.registration-fields .field input[type='password'] {
+    width: 100%;
+    height: 40px;
+    padding: 0 5px;
+    
+    outline: none;
+    border-radius: 5px;
+    border: none;
+
+    background-color: var(--inputs-bg-color);
+    color: var(--main-text-color);
+}
+
+.registration-submit {
+    width: 80%;
+    height: 90px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    
+}
+
+.registration-submit button {
+    width: 250px;
+    height: 40px;
+
+    border: 1px solid #fff;
+    color: var(--main-text-color);
+
+    background-color: transparent;
+
+    cursor: pointer;
+}
+
+.registration-submit button:hover {
+    box-shadow: inset 0 0 5px 0 #fff;
+}
+
+.registration-submit button:disabled {
+    opacity: 0.7;
+}
+
+.registration-submitt__error {
+    color: red;
+}

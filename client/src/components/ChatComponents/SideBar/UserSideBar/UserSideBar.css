@@ -1,0 +1,68 @@
+.side-bar-user {
+    width: 100%;
+    height: 70px;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.side-bar-user .user {
+    width: 100%;
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+
+
+}
+
+.side-bar-user .user .user-image {
+    width: 90px;
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.side-bar-user .user .user-avatar {
+    width: 50px;
+    height: 50px;
+}
+
+.side-bar-user .user .user-info {
+    height: 70px;
+
+    text-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.side-bar-user .user .user-info span {
+    width: inherit;
+    text-wrap: wrap;
+}
+
+.user-tools {
+    width: 125px;
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+}
+
+.user-tools .logout,
+.user-tools .new-chat {
+    width: 30px;
+    height: 30px;
+
+    filter: drop-shadow(0 0 5px #fff);
+    cursor: pointer;
+}
+
+.user-tools .logout {
+    margin-right: 14px;
+}

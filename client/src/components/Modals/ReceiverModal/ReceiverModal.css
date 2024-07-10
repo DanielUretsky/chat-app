@@ -1,0 +1,91 @@
+.receiver-modal-container {
+    width: 500px;
+    height: 600px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: rgb(27, 27, 27);
+    box-shadow: 0 0 25px 0 var(--purple-opacity);
+    border-radius: 8px;
+}
+
+.receiver-modal-image {
+    width: 100%;
+    height: 200px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-bottom: 4px solid rgb(36, 36, 35);
+}
+
+.receiver-modal-image__receiver-image {
+    width: 180px;
+    height: 180px;
+}
+
+
+.receiver-modal-info  {
+    width: 100%;
+    height: 320px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    
+}
+.receiver-modal-info__initials {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.receiver-modal-info .receiver-info {
+    height: 40px;
+    width: 70%;
+    padding: 0px 8px;
+
+    display: flex;
+    align-items: center;
+
+    border-radius: 5px;
+    font-size: 1.1rem;
+    background-color: var(--inputs-bg-color);
+
+}
+.receiver-modal-info__initials .receiver-info {
+    width: 150px;
+    
+}
+
+.receiver-modal-close {
+    width: 100%;
+    height: 80px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.receiver-modal-close__close-button {
+    width: 70%;
+    height: 40px;
+
+    background-color: var(--main-bg-color);
+    outline: none;
+    border: none;
+
+    color: var(--main-text-color);
+
+    transition: scale 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.receiver-modal-close__close-button:hover {
+    scale: 1.01;
+}

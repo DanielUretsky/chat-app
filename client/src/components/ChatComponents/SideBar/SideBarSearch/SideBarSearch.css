@@ -1,0 +1,58 @@
+.side-bar-search {
+    position: relative;
+    width: 100%;
+    height: 70px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+
+    border-bottom: 1px solid var(--sidebar-secondary-color);
+}
+
+.search-chat {
+    width: 90%;
+    height: 30px;
+
+    padding: 0 10px;
+
+    border: none;
+    border-radius: 5px;
+    outline: none;
+
+    background-color: var(--sidebar-secondary-color);
+    
+    color: var(--main-text-color);
+
+}
+
+.contacts-container {
+    position: absolute;
+    bottom: -140px;
+    z-index: 1;
+    
+    width: 90%;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+   
+    overflow-x: auto;
+    background-color: rgba(39, 39, 39, 0.904);
+}
+
+.contacts-container::-webkit-scrollbar {
+    width: 10px;
+    
+}
+
+.contacts-container::-webkit-scrollbar-track {
+    background: #1b1a1a; 
+  }
+
+.contacts-container::-webkit-scrollbar-thumb {
+    background: #555; 
+}

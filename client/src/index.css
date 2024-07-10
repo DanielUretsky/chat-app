@@ -1,0 +1,34 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* -- GLOBAL CSS VARIABLES -- */
+  --main-bg-color: #2e2e2e;
+  --main-text-color: #fff;
+  --purple: #7F0BCC;
+  --purple-opacity: #7c2eea94;
+  --main-font-family: "PT Sans", sans-serif;
+  --default-font-weigt: 400;
+
+  --auth-container-color: #191a1a;
+  --inputs-bg-color: #3f3f3f;
+
+  --sidebar-primary-color: #0000007a;
+  --sidebar-secondary-color: #333333;
+
+  /* -- DEFAULT -- */
+  font-family: var(--main-font-family);
+  font-weight: var(--default-font-weigt);
+
+  color: var(--main-text-color);
+  background-color: var(--main-bg-color);
+}
+
+
+
+
+
+  

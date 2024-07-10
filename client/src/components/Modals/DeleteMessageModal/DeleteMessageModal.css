@@ -1,0 +1,53 @@
+.delete-message-modal-container {
+    position: relative;
+
+    width: fit-content;
+    height: fit-content;
+    padding: 25px 15px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    background-color: rgb(48, 48, 48);
+}
+
+.delete-message-modal-container__close-icon {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    top: 25px;
+    right: 15px;
+}
+
+.delete-message-modal-container p {
+    font-size: 1.1rem;
+}
+
+.delete-message-modal-container-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.delete-message-modal-container-buttons button {
+    height: 40px;
+    padding: 0 15px;
+
+    background-color: transparent;
+
+    font-size: 1rem;
+    font-weight: 600;
+
+    border: 1px solid gray;
+    border-radius: 5px;
+    outline: none;
+
+    color: var(--purple-opacity);
+    cursor: pointer;
+
+    transition: all 0.3s ease-in-out;
+}
+
+.delete-message-modal-container-buttons button:hover {
+    color: var(--purple);
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.322);
+}
