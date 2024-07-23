@@ -14,12 +14,13 @@ import { UserIcon } from '../../../Icons/UserIcon/UserIcon';
 import dropDownIcon from '../../../../assets/icons/drop-down.png';
 
 import './ChatLayoutHeader.css';
+import { useTheme } from '../../../../context/ThemeContext';
 
 export const ChatLayoutHeader = () => {
     const dispatch = useDispatch();
     const currentChat = useSelector(state => state.chat.currentChat);
     const currentReciever = currentChat.members[0];
-
+    const { theme } = useTheme();
     const [dropDownOpen, setDropDownOpen] = useState(false);
     const [receiverModalOpen, setReceiverModalOpen] = useState(false);
 
@@ -36,7 +37,7 @@ export const ChatLayoutHeader = () => {
         dispatch(chatActions.leaveChat());
     }
     return (
-        <div className="chat-layout-header">
+        <div className={`chat-layout-header ${theme === 'light' && 'chat-layout-header__light'}`}>
             <AnimatePresence>
                 {receiverModalOpen &&
                     <ModalRoot>
@@ -67,7 +68,7 @@ export const ChatLayoutHeader = () => {
                     <AnimatePresence>
                         {dropDownOpen &&
                             <motion.div
-                                className='drop-down-container'
+                                className={`drop-down-container ${theme === 'light' && 'drop-down-container__light'}`}
                                 variants={circularTransitionRightToBottom}
                                 initial="initial"
                                 animate="animate"
