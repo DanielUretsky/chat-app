@@ -9,14 +9,17 @@ import { SocketContextProvider } from './context/SocketContext.jsx';
 import App from './App.jsx'
 
 import './index.css'
+import { ThemeProvider } from './context/ThemeContext.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
- 
-    <Provider store={store}>
-      <BrowserRouter>
-        <SocketContextProvider>
+
+  <Provider store={store}>
+    <BrowserRouter>
+      <SocketContextProvider>
+        <ThemeProvider>
           <App />
-        </SocketContextProvider>
-      </BrowserRouter>
-    </Provider>,
+        </ThemeProvider>
+      </SocketContextProvider>
+    </BrowserRouter>
+  </Provider>,
 )

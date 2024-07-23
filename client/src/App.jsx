@@ -1,3 +1,4 @@
+import { useTheme } from './context/ThemeContext';
 import { Routes, Route } from 'react-router-dom';
 
 import { ProtectedRoute } from './components/routes/ProtectedRoute';
@@ -12,9 +13,10 @@ import { Chat } from './pages/Chat/Chat';
 import './App.css'
 
 function App() {
-
+  const { theme } = useTheme();
+  console.log('app', theme);
   return (
-    <div className='app-container'>
+    <div className={`app-container ${theme === 'light' && 'app-container__light'}`}>
       <Routes>
         <Route path='/' element={<Layout />} />
         <Route element={<ProtectedRoute />}>

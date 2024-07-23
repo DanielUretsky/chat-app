@@ -6,25 +6,27 @@
 
 :root {
   /* -- GLOBAL CSS VARIABLES -- */
-  --main-bg-color: #2e2e2e;
-  --main-text-color: #fff;
+  --black: #000;
+  --black-opacity: #00000090;
+  --gray: #2e2e2e;
+  --dark-gray: #1B1B1B;
+  --light-gray: #333333;
+
+  --white: #fbf9e3;
+  --white-light: gainsboro;
   --purple: #7F0BCC;
   --purple-opacity: #7c2eea94;
+  --blue: #1367c7;
+  --blue-opacity: #137ef867;
+  --blue-gradient: linear-gradient(0deg, #3977f3 0%, #5a30f3 100%);
+  --light-blue-gradient: linear-gradient(0deg, #5644bd 0%, #479ee1 100%);
+
   --main-font-family: "PT Sans", sans-serif;
-  --default-font-weigt: 400;
-
-  --auth-container-color: #191a1a;
-  --inputs-bg-color: #3f3f3f;
-
-  --sidebar-primary-color: #0000007a;
-  --sidebar-secondary-color: #333333;
+  --default-font-weigt: 600;
 
   /* -- DEFAULT -- */
   font-family: var(--main-font-family);
   font-weight: var(--default-font-weigt);
-
-  color: var(--main-text-color);
-  background-color: var(--main-bg-color);
 }
 
 

@@ -4,6 +4,16 @@ body {
 
 .app-container {
     width: 100%;
+    background: var(--gray);
+    color: var(--white);
+    transition: all 0.3s ease-in-out;
+  
+}
+
+.app-container__light {
+    background: var(--light-blue-gradient);
+    color: rgb(228, 227, 233);
+    transition: all 0.3s ease-in-out;
 }
 
 
