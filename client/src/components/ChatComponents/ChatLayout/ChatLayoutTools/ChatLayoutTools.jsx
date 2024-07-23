@@ -1,12 +1,13 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 
 import { SocketContext } from '../../../../context/SocketContext';
+import { useTheme } from '../../../../context/ThemeContext';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../../../redux/slices/chat/messageSlice';
 import { getCurrentTime } from '../../../../utils/getCurrentTime';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 
 import EmojiPicker from 'emoji-picker-react';
 import { EditedMessage } from '../../MessageItem/EditedMessage/EditedMessage';
@@ -21,9 +22,10 @@ import addPictureIcon from '../../../../assets/icons/add-picture.png';
 import './ChatLayoutTools.css';
 
 
-export const ChatLayoutTools = ({ messageData, setMessageData }) => {
+export const ChatLayoutTools = ({ messageData, setMessageData, setMessages }) => {
     const dispatch = useDispatch();
     const { socket } = useContext(SocketContext);
+    const { theme } = useTheme();
     const textAreaRef = useRef(null);
 
     const currentChat = useSelector(state => state.chat.currentChat);
@@ -32,17 +34,23 @@ export const ChatLayoutTools = ({ messageData, setMessageData }) => {
     const editedMessage = useSelector(state => state.message.currentMessage);
 
     const [emojiOpen, setEmojiOpen] = useState(false);
+    const [isMessageEmpty, setIsMessageEmpty] = useState(true);
     const [messageImagesArray, setMessageImagesArray] = useState(null);
 
     const room = currentChat._id;
+    //if messages dosnt send check useEffect
+    useEffect(() => {
+        const handleInput = () => {
+            setIsMessageEmpty(textAreaRef.current.innerText.trim() === '');
+        }
 
-    // const resizeTextArea = () => {
-    //     const textarea = textAreaRef.current;
-    //     textarea.style.height = textarea.scrollHeight + "px";
-    //     textarea.scrollTop = textarea.scrollHeight;
-    // };
+        const span = textAreaRef.current;
+        span.addEventListener('input', handleInput);
 
-    // useEffect(resizeTextArea, [messageData]);
+        return () => {
+            span.removeEventListener('input', handleInput);
+        };
+    }, []);
 
     const uploadFileHandler = async (e) => {
         let base64ArrayFiles = [];
@@ -73,7 +81,9 @@ export const ChatLayoutTools = ({ messageData, setMessageData }) => {
             timeSend: getCurrentTime(),
         };
 
-        await sendMessageService(message);
+        //to save message in DB
+        //await sendMessageService(message);
+
         await socket?.emit("send_message", room, message);
 
         setMessageImagesArray(prev => prev = null);
@@ -107,39 +117,45 @@ export const ChatLayoutTools = ({ messageData, setMessageData }) => {
 
     return (
         <div className="chat-layout-tools">
-            <label htmlFor="messageImage">
-                <img
-                    src={addPictureIcon}
-                    alt="add picture"
-                    className='add-picture'
+
+            <div className={`message ${theme === 'light' && 'message__light'}`}>
+                <label htmlFor="messageImage">
+                    <img
+                        src={addPictureIcon}
+                        alt="add picture"
+                        className='add-picture'
+                    />
+                </label>
+                <input
+                    type="file"
+                    id='messageImage'
+                    style={{ display: 'none' }}
+                    onChange={uploadFileHandler}
+                    multiple
                 />
-            </label>
-            <input
-                type="file"
-                id='messageImage'
-                style={{ display: 'none' }}
-                onChange={uploadFileHandler}
-                multiple
-            />
-            <div className="message">
+
                 <AnimatePresence>
                     {
                         isEditModalOpen &&
                         <EditedMessage setMessageData={setMessageData} textAreaRef={textAreaRef} />
                     }
                 </AnimatePresence>
+
                 <span
-                  
                     ref={textAreaRef}
-                    onInput={(e) => setMessageData(e.target.innerText)}
+                    className={`message-input ${theme === 'light' && 'message-input__light'}  ${isMessageEmpty ? 'empty' : ''}`}
                     contentEditable
-                    role='textbox'
-                    className='message-input'
+                    data-placeholder="Write something..."
+                    onInput={(e) => setMessageData(e.target.innerText)}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter' && !e.shiftKey) {
+                            e.preventDefault();
+                            messageDistributor();
+                        }
+                    }}
                 >
                 </span>
-            </div>
 
-            <div className="tools-send">
                 {
                     emojiOpen &&
                     <EmojiPicker
@@ -149,7 +165,7 @@ export const ChatLayoutTools = ({ messageData, setMessageData }) => {
                             right: 65 + 'px',
                             height: 400
                         }}
-                        theme='dark'
+                        theme={theme === 'light' ? 'light' : 'dark'}
                         lazyLoadEmojis={true}
                         onEmojiClick={(e) => {
                             textAreaRef.current.innerText = messageData + e.emoji;
@@ -159,9 +175,21 @@ export const ChatLayoutTools = ({ messageData, setMessageData }) => {
                     />
                 }
 
-                <img src={pickEmojiIcon} alt="choose emoji" onClick={() => setEmojiOpen(prev => !prev)} />
-                <img src={sendIcon} alt="send" onClick={messageDistributor} />
+                <img
+                    src={pickEmojiIcon}
+                    className='add-emoji'
+                    alt="choose emoji"
+                    onClick={() => setEmojiOpen(prev => !prev)}
+                />
+                <img
+                    src={sendIcon}
+                    className='send-message'
+                    alt="send"
+                    onClick={messageDistributor}
+                />
             </div>
+
+
 
 
         </div>

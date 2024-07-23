@@ -5,67 +5,96 @@
     min-height: 70px;
     
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: center;
 }
 
 .message {
     position: absolute;
-    width: 80%;
-    left: 7%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
     bottom:10px;
+
+    width: 100%;
+    height: auto;
+
+    display: flex;
     align-items: center;
-   
+    justify-content: space-around;
+
+    border-radius: 5px;
+    background-color: var(--light-gray);
 }
+
+.message__light {
+    background-color: var(--white-light);
+}
+
 .message-input {
     width: 80%;
     min-height: 30px;
-    display: block;
+    max-height: 250px;
+    /* display: block; */
     padding: 15px;
 
-    display: block;
-    
     outline: none;
     overflow: hidden;
     border: none;
    
-   
     border-radius: 5px;
     font-size: 1rem;
 
-    background-color: var(--sidebar-secondary-color);
-    color: white;
+    background-color: var(--light-gray);
+    color: var(--white);
 }
 
-.tools-send {
-    position: relative;
-    width: 90px;
-    height: 50px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
+.message-input.empty::before {
+    content: attr(data-placeholder);
+    color: grey;
+    
+    pointer-events: none;
 }
 
 
-.tools-send img,
+.message-input__light {
+    background-color: var(--white-light);
+    color: var(--light-gray);
+}
+
+
+.add-emoji,
+.send-message,
 .add-picture {
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     cursor: pointer;
 }
 
 .add-picture {
-    width: 40px;
-    height: 40px;
+    width: 33px;
+    height: 33px;
 }
-
-.tools-send img:hover,
+.add-emoji:hover,
+.send-message:hover,
 .add-picture:hover {
     filter: drop-shadow(0 0 3px var(--purple-opacity));
 
+}
+
+.message__light .add-emoji:hover,
+.message__light .send-message:hover,
+.message__light .add-picture:hover {
+    filter: drop-shadow(0 0 3px var(--blue-opacity));
+
+}
+
+@media screen and (max-width: 703px){
+    .message-input.empty::before {
+        content: '';
+        
+    }
+}
+
+@media screen and (max-width: 415px){
+    .chat-layout-tools {
+        width: 90%;
+    }
 }
