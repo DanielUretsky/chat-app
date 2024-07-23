@@ -1,4 +1,6 @@
-import { useContext } from 'react'
+import { useContext } from 'react';
+import { SocketContext } from '../../../context/SocketContext';
+import { useTheme } from '../../../context/ThemeContext';
 
 import { motion } from 'framer-motion';
 import { scaleIn } from '../../../utils/animationVariants';
@@ -6,18 +8,18 @@ import { scaleIn } from '../../../utils/animationVariants';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../../redux/slices/chat/messageSlice';
 
+import { CloseIcon } from '../../Icons/CloseIcon/CloseIcon';
 import { deleteMessage } from '../../../services/userService';
-import { SocketContext } from '../../../context/SocketContext';
-
-import closeIcon from '../../../assets/icons/close.png';
 
 import './DeleteMessageModal.css';
 
 export const DeleteMessageModal = () => {
-  const dispatch = useDispatch();
+  const { theme } = useTheme();
+  const {socket} = useContext(SocketContext);
+
   const roomId = useSelector(state => state.chat.currentChat?._id);
   const messageId = useSelector(state => state.message.currentMessage?._id);
-  const {socket} = useContext(SocketContext);
+  const dispatch = useDispatch();
 
   const deleteMessageHandler = async(e) => {
     const deletedFor = e.target.value;
@@ -29,17 +31,15 @@ export const DeleteMessageModal = () => {
 
   return (
     <motion.div
-      className='delete-message-modal-container'
+      className={`delete-message-modal-container ${ theme === 'light' && 'delete-message-modal-container__light'}`}
       variants={scaleIn}
       initial='initial'
       animate='animate'
       exit='exit'
     >
-      <img
-        src={closeIcon}
-        className='delete-message-modal-container__close-icon'
-        alt="close"
-        onClick={() => dispatch(actions.closeDeleteMessageModal())}
+      <CloseIcon 
+        className={'delete-message-modal-container__close-icon'} 
+        closeFunc={() => dispatch(actions.closeDeleteMessageModal())}
       />
       <p>Delete message?</p>
 

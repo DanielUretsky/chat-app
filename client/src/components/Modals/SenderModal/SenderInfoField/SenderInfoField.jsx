@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import editIcon from '../../../../assets/icons/edit.png';
 import './SenderInfoField.css';
+import { useTheme } from '../../../../context/ThemeContext';
 
 export const SenderInfoField = ({setNewSenderInfoHandler, name, senderInfo}) => {
+    const { theme } = useTheme();
     const [editImage, setEditImage] = useState(false);
     const [editable, setEditable] = useState(false);
   return (
     <div  
-        className='sender-info'
+        className={`sender-info ${theme === 'light' && 'sender-info__light'}`}
         contentEditable={editable}
         name={name}
         onMouseEnter={() => setEditImage(prev => !prev)}

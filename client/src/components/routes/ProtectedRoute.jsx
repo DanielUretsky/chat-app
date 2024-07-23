@@ -14,12 +14,13 @@ export const ProtectedRoute = () => {
     const authenticateUser = async () => {
       try {
         const user = await authenticate(getCookie("accessToken"));
-        
+        console.log(user);
         if(!user) {
           removeCookie("accessToken");
           dispatch(actions.logout(null))
           navigate('/login')
         }
+        
         dispatch(actions.authenticate(user));
       } catch (err) {
         console.log(err);
@@ -28,7 +29,7 @@ export const ProtectedRoute = () => {
     authenticateUser();
 
 
-  }, [dispatch]);
+  }, );
 
   return (
     <div>

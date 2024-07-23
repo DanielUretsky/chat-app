@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTheme } from '../../../../context/ThemeContext';
 
 import { AnimatePresence, motion, } from 'framer-motion';
 
@@ -8,20 +9,26 @@ import { ContactItem } from './ContactItem/ContactItem';
 import { growFromBottom } from '../../../../utils/animationVariants';
 import { InputLoader } from '../../../Loaders/InputLoader';
 import './SideBarSearch.css';
+import { useSelector } from 'react-redux';
 
 export const SideBarSearch = () => {
+    const { theme } = useTheme();
     const [focus, setFocus] = useState(false);
     const [loading, setLoading] = useState(false);
     const [contactsValue, setContactsValue] = useState("");
     const [contacts, setContacts] = useState([]);
+
+    const currentUser = useSelector(state => state.user.user);
     const searchBlockRef = useRef(null);
   
     useEffect(() => {
         const getData = setTimeout(async () => {
             setLoading(true);
             if (contactsValue !== "") {
-                const data = await searchContacts(contactsValue)
-                setContacts(data);
+                const data = await searchContacts(contactsValue);
+                const filteredData = data.filter(contact => contact._id !== currentUser._id);
+
+                setContacts(filteredData);
                 setLoading(false);
             }
         }, 700)
@@ -46,7 +53,6 @@ export const SideBarSearch = () => {
                 !searchBlockRef.current.contains(e.target)
             ) {
                 setFocus(prev => !prev);
-                
             }
         }
 
@@ -59,10 +65,10 @@ export const SideBarSearch = () => {
     }, [focus]);
 
     return (
-        <div className="side-bar-search">
+        <div className={`side-bar-search ${theme === 'light' && 'side-bar-search__light'}`}>
             <input
                 type="search"
-                className='search-chat'
+                className={`search-chat ${theme === 'light' && 'search-chat__light'}`}
 
                 placeholder='Search contact'
                 onChange={(e) => setContactsValue(e.target.value)}
@@ -70,11 +76,11 @@ export const SideBarSearch = () => {
 
             />
             <AnimatePresence>
-
+            
                 {focus &&
                     <motion.div
                         ref={searchBlockRef}
-                        className="contacts-container"
+                        className={`contacts-container ${theme === 'light' && 'contacts-container__light'}`}
                         variants={growFromBottom}
                         initial="initial"
                         animate="animate"

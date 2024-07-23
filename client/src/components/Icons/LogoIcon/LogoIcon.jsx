@@ -8,8 +8,8 @@ export const LogoIcon = ({ className, logoColor }) => {
             x="0px"
             y="0px"
             viewBox="0 0 100 105"
-            enableBackground="new 0 0 100 100"
-            xmlSpace="preserve"
+            //enableBackground="new 0 0 100 100"
+            // xmlSpace="preserve"
             fill= {logoColor}
             filter= "url(#logoBlur)"
         >

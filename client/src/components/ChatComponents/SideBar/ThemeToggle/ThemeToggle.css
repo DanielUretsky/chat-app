@@ -1,0 +1,21 @@
+.theme-toggle__wrapper {
+    cursor: pointer;
+
+}
+
+.theme-toggle {
+    fill: var(--white);
+    cursor: pointer;
+}
+
+.theme-toggle__wrapper:hover .theme-toggle {
+    filter: drop-shadow(0 0 3px var(--purple));
+}
+
+.theme-toggle__light {
+    fill: var(--black);
+}
+
+.theme-toggle__wrapper:hover .theme-toggle__light {
+    filter: drop-shadow(0 0 3px var(--blue));
+}

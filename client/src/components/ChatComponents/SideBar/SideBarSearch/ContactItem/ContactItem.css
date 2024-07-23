@@ -1,34 +1,74 @@
 .contact-item-container {
     width: 90%;
-    height: 50px;
+    
+    height: auto;
 
     display: flex;
+    align-items: center;
     justify-content: space-between;
+    gap: 5px;
+
     margin-top: 10px;
     border-radius: 10px;
-    background-color: rgb(71, 71, 71);
+    background-color: var(--gray);
+
+    border-left: 8px solid var(--purple);
+    box-shadow: 0 0 5px 0 var(--purple-opacity);
+}
+
+.contact-item-container__light {
+    border-left: 8px solid var(--blue);
+    box-shadow: 0 0 5px 0 var(--blue-opacity);
+    background-color: var(--white-light);
+    color: var(--light-gray);
 }
 
 .contact-item-image {
     width: 60px;
-    height: 50px;
+    height: 60px;
 
     display: flex;
     align-items: center;
     justify-content: center;
+    
+    
+    margin-left: 5px;
 }
 
 .contact-item-image img {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
 }
 
 .contact-item-info {
-    width: 90%;
-    height: 50px;
+    width: 100%;
+    height: auto;
 
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    flex-grow: 0;
+    gap: 5px;
+    overflow: hidden;
     
-    justify-content: space-around;
+}
+
+.contact-item-info span {
+    width: 100%;
+    
+    
+    text-wrap: wrap;
+    overflow-wrap: break-word;
+}
+
+@media screen and (max-width: 730px) {
+    .contact-item-info__email {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 730px) {
+    .contact-item-info__username {
+        display: none;
+    }
 }

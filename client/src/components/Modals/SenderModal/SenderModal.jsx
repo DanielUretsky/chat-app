@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useTheme } from '../../../context/ThemeContext';
 import { motion } from 'framer-motion';
 
 import { SenderInfoField } from './SenderInfoField/SenderInfoField';
@@ -15,6 +16,7 @@ import { scaleIn } from '../../../utils/animationVariants';
 import './SenderModal.css';
 
 export const SenderModal = ({ closeModalHandler, currentUser }) => {
+  const { theme } = useTheme();
   const [currentUserInfo, setCurrentUserInfo] = useState(currentUser);
   const dispatch = useDispatch();
 
@@ -39,7 +41,7 @@ export const SenderModal = ({ closeModalHandler, currentUser }) => {
 
   return (
     <motion.div
-      className='sender-modal-container'
+      className={`sender-modal-container ${ theme === 'light' && 'sender-modal-container__light'}`}
       variants={scaleIn}
       initial="initial"
       animate="animate"
@@ -101,13 +103,13 @@ export const SenderModal = ({ closeModalHandler, currentUser }) => {
       </div>
       <div className="sender-modal-tools">
         <button
-          className='sender-modal-tools__close-button'
+          className={`sender-modal-tools__close-button ${ theme === 'light' && 'sender-modal-tools__close-button__light'}`}
           onClick={closeModalHandler}
         >
           Close
         </button>
         <button
-          className='sender-modal-tools__update-button'
+          className={`sender-modal-tools__update-button ${ theme === 'light' && 'sender-modal-tools__update-button__light'}`}
           onClick={updateSenderInfoHandler}
         >
           Update

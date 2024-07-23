@@ -8,7 +8,12 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
-    background-color: rgb(48, 48, 48);
+    background-color: var(--gray);
+}
+
+.delete-message-modal-container__light {
+    background-color: var(--white);
+    box-shadow: 0 0 5px 0 var(--black);
 }
 
 .delete-message-modal-container__close-icon {
@@ -21,6 +26,7 @@
 
 .delete-message-modal-container p {
     font-size: 1.1rem;
+    color: var(--white);
 }
 
 .delete-message-modal-container-buttons {
@@ -47,7 +53,16 @@
     transition: all 0.3s ease-in-out;
 }
 
+.delete-message-modal-container__light .delete-message-modal-container-buttons button {
+    color: var(--blue-opacity)
+}
+
 .delete-message-modal-container-buttons button:hover {
     color: var(--purple);
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.322);
+}
+
+.delete-message-modal-container__light .delete-message-modal-container-buttons button:hover {
+    color: var(--blue);
     box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.322);
 }

@@ -9,7 +9,13 @@
 
     border-radius: 5px;
     font-size: 1.1rem;
-    background-color: var(--inputs-bg-color);
+    background-color: var(--gray);
+    color: var(--white)
+}
+
+.sender-modal-info .sender-info__light {
+    background-color: var(--white-light);
+    color: var(--black)
 }
 
 .sender-info__edit-icon {

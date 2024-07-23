@@ -9,7 +9,11 @@
     justify-content: center;
     
 
-    border-bottom: 1px solid var(--sidebar-secondary-color);
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.side-bar-search__light {
+    border-bottom-color: var(--blue-gradient);
 }
 
 .search-chat {
@@ -22,10 +26,15 @@
     border-radius: 5px;
     outline: none;
 
-    background-color: var(--sidebar-secondary-color);
+    background-color: var(--light-gray);
     
-    color: var(--main-text-color);
+    color: var(--white);
 
+}
+
+.search-chat__light {
+    background: var(--white-light);
+    color: var(--black);
 }
 
 .contacts-container {
@@ -40,8 +49,13 @@
 
     align-items: center;
    
-    overflow-x: auto;
-    background-color: rgba(39, 39, 39, 0.904);
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: var(--black-opacity);
+}
+
+.contacts-container__light {
+    background-color: var(--blue-opacity);
 }
 
 .contacts-container::-webkit-scrollbar {

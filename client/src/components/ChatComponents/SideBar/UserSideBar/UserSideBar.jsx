@@ -28,8 +28,6 @@ export const UserSideBar = () => {
 
     const logoutHandler =  () => {
         try {
-         // const response = await logout();
-           // if (response.status === 500) return navigate('/login');
             removeCookie('accessToken');
             dispatch(chatActions.leaveChat());
             dispatch(userActions.logout(null));
@@ -71,11 +69,12 @@ export const UserSideBar = () => {
                     <UserIcon
                         userImage={currentUser?.image}
                         className={'user-avatar'}
+                        
                     />
                 </div>
-                <div className="user-info">
-                    <span>{currentUser?.username} </span>
-                    <span>{currentUser?.phone} </span>
+                <div className='user-info'>
+                    <span className='user-info__username'>{currentUser?.username} </span>
+                    <span className='user-info__phone'>{currentUser?.phone} </span>
                 </div>
             </div>
 

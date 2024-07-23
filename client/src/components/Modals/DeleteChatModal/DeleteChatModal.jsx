@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 import { SocketContext } from '../../../context/SocketContext';
+import { useTheme } from '../../../context/ThemeContext';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { actions as chatActions } from '../../../redux/slices/chat/chatSlice';
@@ -9,12 +10,14 @@ import { scaleIn } from '../../../utils/animationVariants';
 
 import { deleteChatService } from '../../../services/userService';
 
-import closeIcon from '../../../assets/icons/close.png';
+import {CloseIcon} from '../../Icons/CloseIcon/CloseIcon';
+
 import './DeleteChatModal.css';
 
 
 export const DeleteChatModal = () => {
     const { socket } = useContext(SocketContext);
+    const { theme } = useTheme();
     const [deleteForAll, setDeleteForAll] = useState(false);
 
     const currentUserId = useSelector(state => state.user.user._id);
@@ -35,21 +38,19 @@ export const DeleteChatModal = () => {
         }
 
         dispatch(chatActions.closeDeletedChatModal());
-        //currentDeletedChat._id === currentChatId && dispatch(chatActions.leaveChat());
     }
 
     return (
         <motion.div 
-            className='delete-chat-modal-container'
+            className={`delete-chat-modal-container ${theme === 'light' && 'delete-chat-modal-container__light'}`}
             variants={scaleIn}
             initial="initial"
             animate="animate"
             exit="exit"
         >
-            <img 
-                src={closeIcon} 
-                alt="close" 
-                onClick={() => dispatch(chatActions.closeDeletedChatModal())}
+            <CloseIcon 
+                className={'delete-chat-modal-container__close'} 
+                closeFunc={() => dispatch(chatActions.closeDeletedChatModal())}
             />
             <p>Delete this chat?</p>
             <label htmlFor="deleteForReceiver">
@@ -60,7 +61,7 @@ export const DeleteChatModal = () => {
                     onChange={() => setDeleteForAll(prev => !prev)}/>
             </label>
             <button 
-                className='delete-chat-modal-container__confirm'
+                className={`delete-chat-modal-container__confirm ${theme === 'light' && 'delete-chat-modal-container__confirm__light'}`}
                 onClick={deleteChatHandler}
             >
                 Delete

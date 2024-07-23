@@ -6,9 +6,14 @@
     flex-direction: column;
     align-items: center;
 
-    background-color: rgb(27, 27, 27);
+    background-color: var(--dark-gray);
     box-shadow: 0 0 25px 0 var(--purple-opacity);
     border-radius: 8px;
+}
+
+.receiver-modal-container__light {
+    background-color: var(--white);
+    box-shadow: 0 0 25px 0 var(--blue-opacity);
 }
 
 .receiver-modal-image {
@@ -19,9 +24,13 @@
     align-items: center;
     justify-content: center;
 
-    border-bottom: 4px solid rgb(36, 36, 35);
+    border-bottom: 4px solid var(--gray);
 }
 
+
+.receiver-modal-container__light  .receiver-modal-image {
+    border-bottom: 4px solid var(--blue-opacity);
+}
 .receiver-modal-image__receiver-image {
     width: 180px;
     height: 180px;
@@ -55,8 +64,13 @@
 
     border-radius: 5px;
     font-size: 1.1rem;
-    background-color: var(--inputs-bg-color);
+    background-color: var(--light-gray);
+    color: var(--white);
+}
 
+.receiver-modal-info  .receiver-info__light {
+    background-color: var(--white-light);
+    color: var(----dark-gray);
 }
 .receiver-modal-info__initials .receiver-info {
     width: 150px;
@@ -76,14 +90,20 @@
     width: 70%;
     height: 40px;
 
-    background-color: var(--main-bg-color);
+    background-color: var(--gray);
     outline: none;
     border: none;
 
-    color: var(--main-text-color);
+    color: var(--white);
 
     transition: scale 0.2s ease-in-out;
     cursor: pointer;
+}
+
+.receiver-modal-close__close-button__light {
+    background-color: var(--white-light);
+    color: var(--dark-gray);
+
 }
 
 .receiver-modal-close__close-button:hover {

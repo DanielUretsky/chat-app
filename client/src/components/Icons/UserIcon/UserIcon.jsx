@@ -6,6 +6,7 @@ export const UserIcon = ({userImage, className }) => {
     return (
         <img
             className={className}
+            style={{borderRadius: '50%'}}
             src={userImage ? userImage : defaultUserAvatar}
             alt="user avatar"   
         />
