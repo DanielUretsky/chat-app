@@ -1,4 +1,5 @@
 .chat-list-item-container {
+    position: relative;
     width: 90%;
     height: 65px;
 
@@ -21,6 +22,15 @@
     background-color: rgba(240, 248, 255, 0.219);
 }
 
+.chat-list-item-container__light {
+    border-left: 7px solid var(--blue);
+    color: var(--black);
+}
+
+.chat-list-item-container__light:hover {
+    background-color: var(--blue-opacity);
+}
+
 .chat-list-item-container__delete-icon {
     position: absolute;
     top: 0;
@@ -37,11 +47,11 @@
 }
 
 .chat-list-item-user {
-    position: relative;
+    
     width: 100%;
     height: 65px;
     
-    border-bottom: 1px solid var(--sidebar-secondary-color); 
+    border-bottom: 1px solid var(--light-gray); 
 }
 
 .chat-list-item-last-message {
@@ -49,4 +59,14 @@
     
     margin-left: 5px;
     color: rgb(112, 114, 114);
+}
+
+@media screen and (max-width: 770px) {
+    .chat-list-item-user {
+        display: none;
+    }
+
+    .chat-list-item-container {
+        justify-content: flex-start;
+    }
 }
