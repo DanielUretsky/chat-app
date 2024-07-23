@@ -5,6 +5,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+
 }
 
 .login {
@@ -17,8 +19,13 @@
     justify-content: space-between;
 
     border-radius: 10px;
-    background-color: var(--auth-container-color);
+    background-color: var(--dark-gray);
 
+}
+
+.login__light {
+    background-color: var(--white);
+    
 }
 
 .login-header {
@@ -30,14 +37,19 @@
     align-items: center;
     justify-content: center;
 
-    border-bottom: 1px solid;
+    border-bottom: 1px solid var(--gray);
 
+}
+
+.login__light .login-header {
+    border-bottom: 1px solid var(--blue);
 }
 
 .login-header .logo {
     width: 100px;
     height: 100px;
     transition: all .5s ease-in-out;
+    
     
 }
 
@@ -72,6 +84,43 @@
     border-radius: 5px;
     border: none;
 
-    background-color: var(--inputs-bg-color);
-    color: var(--main-text-color);
+    background-color: var(--light-gray);
+    color: var(--white);
+}
+
+.login__light .login-fields .field input[type='text'],
+.login__light .login-fields .field input[type='password'] {
+    background-color: var(--white-light);
+    color: var(--dark-gray);
+}
+
+.login__light .login-fields .field label {
+    color: var(--dark-gray);
+}
+
+.login-submit {
+    width: 80%;
+    height: 90px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.login-submit button {
+    width: 250px;
+    height: 40px;
+
+    border: 1px solid var(--white);
+    color: var(--white);
+
+    background-color: transparent;
+
+    cursor: pointer;
+}
+
+.login__light .login-submit button {
+    border: 1px solid var(--blue);
+    color: var(--blue);
 }

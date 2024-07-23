@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
+import { useTheme } from '../../context/ThemeContext';
 
 import { Link, useNavigate } from 'react-router-dom';
+import { Input } from '../../components/Authenticate/Input';
 
 import { registrationValidationParameters } from '../../utils/constants';
 import { registration } from '../../services/authService';
@@ -8,9 +10,9 @@ import { registration } from '../../services/authService';
 import { LogoIcon } from '../../components/Icons/LogoIcon/LogoIcon';
 
 import './Registration.css';
-import { Input } from '../../components/Authenticate/Input';
 
 export const Registration = () => {
+    const { theme } = useTheme();
     const [userInfo, setUserInfo] = useState({
         firstName: "",
         lastName: "",
@@ -19,33 +21,33 @@ export const Registration = () => {
         password: "",
         gender: "",
     });
+
     const [errStack, setErrockStack] = useState([]);
-    const [logoColor, setLogoColor] = useState('#fff');
+    const [logoColor, setLogoColor] = useState(theme === 'light' ? 'var(--blue)' : '#fff');
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (logoColor === "green") setErrockStack([]);
+        if (logoColor === "'var(--blue)'") setErrockStack([]);
 
     }, [logoColor]);
 
-    console.log(errStack);
     const validateEmailHandler = (value) => {
         if (!registrationValidationParameters.email.regex.test(value)) {
             setErrockStack([...errStack, "Email is not valid!"]);
             return setLogoColor('#cc0000');
         };
 
-        return setLogoColor('green');
+        return setLogoColor('var(--blue)');
     }
 
     const validatePhoneHandler = (value) => {
-        if(!registrationValidationParameters.phone.regex.test(value)) {
+        if (!registrationValidationParameters.phone.regex.test(value)) {
             setErrockStack([...errStack, "Phone is not valid"]);
             return setLogoColor('#cc0000');
         }
 
-        return setLogoColor('green');
+        return setLogoColor('var(--blue)');
     }
 
     const validatePasswordHandler = (name, value) => {
@@ -65,7 +67,7 @@ export const Registration = () => {
             return setLogoColor('#cc0000')
         };
 
-        return setLogoColor('green');
+        return setLogoColor('var(--blue)');
     }
 
     const validateFieldsHandler = (name, value) => {
@@ -74,12 +76,12 @@ export const Registration = () => {
             return setLogoColor('#cc0000')
 
         }
-        return setLogoColor('green');
+        return setLogoColor('var(--blue)');
     }
 
     const validateFormHandler = (targetInput) => {
         const { name, value } = targetInput;
-      
+
         if (name === "email") return validateEmailHandler(value);
         if (name === "phone") return validatePhoneHandler(value);
         if (name === "password" || name === "repeatedPassword") return validatePasswordHandler(name, value);
@@ -110,7 +112,7 @@ export const Registration = () => {
 
     return (
         <div className="registration-container">
-            <form className="registration">
+            <form className={`registration ${theme === 'light' && 'registration__light'} `}>
                 <div className="registration-header">
                     <LogoIcon className='logo' logoColor={logoColor} />
                 </div>
@@ -198,7 +200,16 @@ export const Registration = () => {
 
                 <div className="registration-submit">
                     <button type='submit' onClick={handleSubmit} disabled={logoColor === 'green' ? false : true}>Submit</button>
-                    <span>Already have acccount? <Link style={{ textDecorationColor: '' }} to='/login'>Login</Link></span>
+                    <span style={{color: theme === 'light' ? 'var(--dark-gray)' : 'var(--white)'}}>
+                        Already have acccount? <Link
+                            style={{
+                                textDecorationColor: '',
+                                color: theme === 'light' ? 'var(--blue)' : 'var(--purple)'
+                            }}
+                            to='/login'>
+                            Login
+                        </Link>
+                    </span>
                     <span className='registration-submitt__error'>{errStack.length > 0 && errStack[errStack.length - 1]}</span>
                 </div>
             </form>

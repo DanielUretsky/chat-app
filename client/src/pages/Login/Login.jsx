@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useTheme } from "../../context/ThemeContext.jsx";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -13,10 +14,10 @@ import { login } from "../../services/authService";
 import './Login.css';
 
 export const Login = () => {
-  const [logoColor, setLogoColor] = useState("#fff");
   const [err, setErrock] = useState(null);
   const [userInfo, setUserInfo] = useState({ email: "", password: "" });
-
+  
+  const { theme } = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -26,27 +27,25 @@ export const Login = () => {
   }
 
   const handleSubmit = async () => {
-   try {
-    const response = await login(userInfo);
-    if (response?.status !== 200) return setErrock(response);
-   
-    const accessToken  = response.message.data.accessToken;
+    try {
+      const response = await login(userInfo);
+      if (response?.status !== 200) return setErrock(response);
 
-    setCookie("accessToken", accessToken);
-    dispatch(actions.login(response.message.data.user));
-    navigate('/');
-   } catch (err) {
-    console.log(err);
-   }
+      const accessToken = response.message.data.accessToken;
+      console.log(accessToken);
+      setCookie("accessToken", accessToken, { path: '/' });
+      dispatch(actions.login(response.message.data.user));
+      navigate('/');
+    } catch (err) {
+      console.log(err);
+    }
   }
-
-
 
   return (
     <div className="login-container">
-      <div className="login">
+      <div className={`login ${theme === 'light' && 'login__light'}`}>
         <div className="login-header">
-          <LogoIcon className='logo' logoColor={logoColor} />
+          <LogoIcon className='logo' logoColor={theme === 'light' ? 'var(--blue)' : 'var(--white)'} />
         </div>
         <div className="login-fields">
           <Input
@@ -65,16 +64,20 @@ export const Login = () => {
           />
 
         </div>
-        <div className="registration-submit">
+        <div className="login-submit">
           <button
             onClick={handleSubmit}
           >
             Submit
           </button>
-          <span>
-            Dont  have an account? <Link style={{ textDecorationColor: '' }} to='/registration'>Sign up</Link>
+          <span style={{ color: theme === 'light' ? 'var(--dark-gray)' : 'var(--white)' }}>
+            Dont  have an account? <Link
+              style={{
+                textDecorationColor: '',
+                color: theme === 'light' ? 'var(--blue)' : 'var(--purple)'
+              }} to='/registration'>Sign up</Link>
           </span>
-          <span className='registration-submitt__error'>
+          <span className='login-submit__error'>
             {err}
           </span>
         </div>
