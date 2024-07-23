@@ -7,41 +7,53 @@
     display: flex;
     
     overflow-wrap: break-word;
-    flex-direction: column;
-}
-
-.corner {
-    position: absolute;
-    top: 0;
-    
-}
-
-.corner-left {
-    left: -10px;
-
-    border-right: 10px solid rgb(17, 17, 17);
-    border-bottom: 10px solid transparent
-}
-
-.corner-right {
-    right: -9px;
-
-    border-left: 10px solid var(--sidebar-secondary-color);
-    border-bottom: 10px solid transparent
+    flex-direction: column; 
 }
 
 .left {
     align-self: flex-start;
-    background-color: rgb(17, 17, 17);
+    background-color: var(--black-opacity);
     margin-left: 10px;
     border-radius: 0px 5px 5px 5px;
 }
 
 .right {
     align-self: flex-end;
-    background-color: var(--sidebar-secondary-color);
+    background-color: var(--light-gray);
     margin-right: 10px;
     border-radius: 5px 0 5px 5px;
+}
+
+.right__light {
+    background: var(--blue-gradient);
+}
+
+.left {
+    background: var(--black-opacity);
+}
+
+.corner {
+    position: absolute;
+    top: 0;
+}
+
+.corner-left {
+    left: -10px;
+
+    border-right: 10px solid var(--black-opacity);
+    border-bottom: 10px solid transparent
+}
+.right__light .corner-right {
+    right: -9px;
+
+    border-left: 10px solid var(--blue);
+    border-bottom: 10px solid transparent
+}
+.corner-right {
+    right: -9px;
+
+    border-left: 10px solid var(--light-gray);
+    border-bottom: 10px solid transparent
 }
 
 .message__time {
@@ -51,15 +63,17 @@
 .message-drop-down-icon {
     position: absolute;
     top: 0;
-    right: 5px;
-
-    width: 15px;
-    height: 15px;
+    right: 3px;
 
     align-self: flex-end;
 
-    background-color: var(--sidebar-secondary-color);
+    background-color: var(--light-gray);
     border-radius: 50%;
+}
+
+.message-drop-down-icon__light {
+    background-color: transparent;
+    background: var(--blue-gradient);
 }
 
 .message-drop-down-container {
@@ -73,8 +87,13 @@
     flex-direction: column;
     align-items: center;
 
-    background-color: rgb(40, 41, 41);
+    background-color: var(--gray);
     box-shadow: 0 0 5px 0 var(--purple);
+}
+
+.message-drop-down-container__light {
+    background: var(--blue-gradient);
+    box-shadow: 0 0 5px 0 var(--blue);
 }
 
 .message-drop-down-item {
@@ -90,7 +109,11 @@
 }
 
 .message-drop-down-item:hover { 
-    background-color: rgb(90, 90, 90); 
+    background-color: var(--light-gray); 
+}
+
+.message-drop-down-container__light .message-drop-down-item:hover { 
+    background-color: var(--blue-opacity); 
 }
 
 .left .message__text {

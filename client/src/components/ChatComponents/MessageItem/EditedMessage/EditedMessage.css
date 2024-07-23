@@ -11,7 +11,11 @@
     height: 60px;
     
     border-radius: 5px 5px 0  0;
-    background-color: var(--sidebar-secondary-color);
+    background-color: var(--light-gray);
+}
+
+.edited-message-container__light {
+    background-color: var(--white-light);
 }
 
 .edited-message-container-message {
@@ -26,13 +30,19 @@
     border-radius: 5px;
     border-left: 5px solid var(--purple);
 
-    background-color: rgba(228, 187, 255, 0.096);
+    background-color: var(--gray);
 }
 
+.edited-message-container-message__light{
+    border-left: 5px solid var(--blue);
+    background-color: var(--blue-opacity);
+
+    color: black;
+}
 /* rgb(118, 13, 189) */
 
 .edited-message-container__edit {
-    color: rgb(211, 211, 211);
+    color: var(--white-light);
 }
 
 .edited-message-container__text {
@@ -42,7 +52,3 @@
     white-space: breake-spaces;
 }
 
-.edited-message-container__close-icon {
-    width: 30px;
-    height: 30px;
-}

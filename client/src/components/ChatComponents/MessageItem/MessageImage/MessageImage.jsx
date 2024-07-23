@@ -13,8 +13,7 @@ export const MessageImage = ({image}) => {
     const closeMessageImageModal = (e) => {
         setMessageImageModalOpen(prev => !prev);
     }
-    console.log(image);
-
+    
     useEffect(() => {
         const {width, height} = image;
         

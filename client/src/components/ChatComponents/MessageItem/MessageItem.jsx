@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react'
-
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../../redux/slices/chat/messageSlice';
+import { useTheme } from '../../../context/ThemeContext';
+
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageImage } from './MessageImage/MessageImage';
-import { ModalRoot } from '../../Modals/ModalRoot';
-import { DeleteMessageModal } from '../../Modals/DeleteMessageModal/DeleteMessageModal';
 
 import { circularTransitionRightToBottom } from '../../../utils/animationVariants';
+
 import messageDropDownIcon from '../../../assets/icons/message-drop-down.png';
 
 import './MessageItem.css';
+import { DropDownIcon } from '../../Icons/DropDownIcon/DropDownIcon';
 
 export const MessageItem = ({ message, currentUserId, setMessageData }) => {
+  const { theme } = useTheme();
   const messageFromReceiver = currentUserId !== message.sender;
   const dispatch = useDispatch();
 
@@ -21,9 +23,9 @@ export const MessageItem = ({ message, currentUserId, setMessageData }) => {
 
   const [showDropDownIcon, setShowDropDownIcon] = useState(false);
   const [dropDownOpen, setDropDownOpen] = useState(false);
- 
+
   useEffect(() => {
-    if(isDeleteModalOpen || isEditModalOpen) {
+    if (isDeleteModalOpen || isEditModalOpen) {
       setShowDropDownIcon(false);
       setDropDownOpen(false);
     }
@@ -53,35 +55,39 @@ export const MessageItem = ({ message, currentUserId, setMessageData }) => {
     setMessageData(message.body.text);
   }
 
-  
+
   return (
     <div
-      className={`message-container ${messageFromReceiver ? "left" : "right"}`}
+      className={`message-container ${messageFromReceiver ? "left" : "right"} ${(theme === 'light') && 'right__light'}`}
       onMouseEnter={showDropDownIconHandler}
       onMouseLeave={hideDropDownIconHandler}
     >
       <div className={`corner ${messageFromReceiver ? 'corner-left' : 'corner-right'}`}></div>
       {
-        dropDownIconCondition && <img
-          className='message-drop-down-icon'
-          src={messageDropDownIcon}
-          alt="drop-down"
-          onClick={openDropDownHandler}
-        />
+         dropDownIconCondition &&  
+          <DropDownIcon 
+            dropdDownFunc={openDropDownHandler}
+            className={`message-drop-down-icon ${theme === 'light' && 'message-drop-down-icon__light'}`}
+          /> //<img
+        //   className={`message-drop-down-icon ${theme === 'light' && 'message-drop-down-icon__light'}`}
+        //   src={messageDropDownIcon}
+        //   alt="drop-down"
+        //   onClick={openDropDownHandler}
+        // />
       }
 
       <AnimatePresence>
         {
           dropDownOpen &&
           <motion.div
-            className="message-drop-down-container"
+            className={`message-drop-down-container ${ theme == 'light' && 'message-drop-down-container__light'}`}
             variants={circularTransitionRightToBottom}
             initial='initial'
             animate='animate'
             exit='exit'
           >
             {
-              message.body.text !== "" &&
+              message.body?.text !== "" &&
               <div
                 className="message-drop-down-item"
                 onClick={openEditMessageHandler}
@@ -101,10 +107,10 @@ export const MessageItem = ({ message, currentUserId, setMessageData }) => {
       </AnimatePresence>
 
       <p className='message__text'>
-        {message.body.text}
+        {message?.body?.text}
       </p>
       {
-        message.body.images &&
+        message.body?.images &&
         <div className={`message__images ${messageFromReceiver ? 'image-left' : 'image-right'}`}>
           {
             message.body.images.map((image, index) => {
@@ -115,7 +121,7 @@ export const MessageItem = ({ message, currentUserId, setMessageData }) => {
       }
 
       <p className='message__time'>
-        {message.body.timeSend}
+        {message.body?.timeSend}
       </p>
     </div>
   )
