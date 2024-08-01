@@ -13,19 +13,17 @@ const io = new Server(server, {
 });
 
 io.on('connection', (socket) => {
-    //console.log(`user connected`, socket.id);
-
     socket.on('join_room', (room) => {
         socket.join(room);
         console.log(`User joined room: ${room}`);
+        io.to(room).emit('user-joined', room);
         
     });
 
     socket.on('create-chat', (room) => {
-        console.log('chat created');
         io.emit('chat-created', room);
-    });
-    
+    }); 
+     
     socket.on('delete-chat', (room, deleteFor) => {
         console.log(deleteFor);
         console.log('chat deleted', room, deleteFor);
@@ -33,10 +31,18 @@ io.on('connection', (socket) => {
         io.emit('chat-deleted', room, deleteFor);
     });
 
-    socket.on('send_message', (room, message) => {
-        // console.log(message);
-        // console.log(room); 
+    socket.on('restore-chat', () => {
+        io.emit('chat-restored');
+    })
+
+    socket.on('restore-chat-request', (toUserId, fromUsername, deletedChatId) => {
+        console.log(deletedChatId);
+        io.emit(`send-restore-request-${toUserId}`, fromUsername, deletedChatId);
+    })
+
+    socket.on('send_message', (room, message) => { 
         io.to(room).emit('receive_message', message);
+        io.emit('last-message', room, message); 
     });
 
     socket.on('update-message', (room) => {
@@ -48,14 +54,14 @@ io.on('connection', (socket) => {
     });
 
     socket.on('leave_room', (room) => { 
-        
+        io.to(room).emit('room_leaved', room);
         console.log(`leaved room ${room}`);
     });
-    
+     
     socket.on('disconnect', () => {
         console.log(`user disconnected ${socket.id}`);
     });
 })
 
  
-module.exports = { app, io, server } 
+module.exports = { app, io, server }  
