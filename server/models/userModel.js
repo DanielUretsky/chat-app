@@ -6,10 +6,10 @@ const userSchema = new mongoose.Schema({
         required: [true, 'First name is required!']
     },
     lastName: {
-        type: String, 
+        type: String,
         required: [true, 'Last name is required!']
     },
-    username: { 
+    username: {
         type: String,
         required: [true, 'Username is required!'],
         unique: true
@@ -37,7 +37,7 @@ const userSchema = new mongoose.Schema({
     image: {
         type: String,
         default: null
-    }
+    },
 }, {
     versionKey: false,
     strict: 'throw'
