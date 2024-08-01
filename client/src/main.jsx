@@ -6,20 +6,24 @@ import { Provider } from 'react-redux';
 import { store } from './redux/store.js';
 
 import { SocketContextProvider } from './context/SocketContext.jsx';
+import { ThemeProvider } from './context/ThemeContext.jsx';
+import { AxiosInterceptorGate } from './axios/axiosConfig.js';
+
 import App from './App.jsx'
 
 import './index.css'
-import { ThemeProvider } from './context/ThemeContext.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 
   <Provider store={store}>
     <BrowserRouter>
-      <SocketContextProvider>
-        <ThemeProvider>
-          <App />
-        </ThemeProvider>
-      </SocketContextProvider>
+      <AxiosInterceptorGate>
+        <SocketContextProvider>
+          <ThemeProvider>
+            <App />
+          </ThemeProvider>
+        </SocketContextProvider>
+      </AxiosInterceptorGate>
     </BrowserRouter>
   </Provider>,
 )
