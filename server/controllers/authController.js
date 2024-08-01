@@ -29,20 +29,6 @@ const login = async (req, res) => {
     }
 }
 
-// const logout = async (req, res) => {
-//     try {
-//         const { refreshToken } = req.cookies;
-
-//         const response = await authService.logout(refreshToken);
-//         if (!response) return res.status(500).send('Unknown server error');
-
-//         res.status(response.status).send(response.message);
-//     } catch (err) {
-//         console.log('Err authController logout', err.message);
-//         res.status(500).send('Unknown server error');
-//     }
-// }
-
 const authenticate = async (req, res) => {
     try {
         const accessToken = req.headers.authorization.split(' ')[1];
@@ -61,6 +47,5 @@ const authenticate = async (req, res) => {
 module.exports = {
     registration,
     login,
-    //logout,
     authenticate
 }
