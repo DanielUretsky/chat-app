@@ -3,7 +3,13 @@ const chatModel = require('../models/chatModel');
 
 const createChat = async (senderId, recieverId) => {
     try {
-        const foundedChat = await chatModel.findOne({ members: [senderId, recieverId] });
+        const foundedChat = await chatModel.findOne({
+            $or: [
+                { members: [senderId, recieverId] },
+                { members: [recieverId, senderId] }
+            ]
+        });
+
         if (foundedChat) return { status: 409, message: 'This chat is already exists!' };
 
         const userObjectId = new mongoose.Types.ObjectId(senderId);
@@ -41,9 +47,44 @@ const getAllChats = async (userId) => {
     }
 };
 
+const getAllDeletedChats = async (userId) => {
+    try {
+        const userObjectId = new mongoose.Types.ObjectId(userId);
+        const deletedChats = await chatModel
+            .find({
+                $and: [
+                    { members: { $in: [userObjectId] } },
+                    {
+                        $or: [
+                            { 'deletedFor': userId },
+                            { 'deletedFor': 'all' }
+                        ]
+                    }
+                ]
+            })
+            .select('_id deletedFor members')
+            .populate({
+                path: 'members',
+                match: { _id: { $ne: userObjectId } },
+                select: '_id username email image'
+
+            })
+
+
+        return { status: 200, message: deletedChats }
+
+    } catch (err) {
+        console.log(`Error in chatService, getAllDeletedChats:`, err.message);
+    }
+}
+
+
 const deleteChat = async (_id, deletedFor) => {
     try {
-        await chatModel.findByIdAndUpdate(_id, { $set: { deletedFor } });
+        await chatModel.findByIdAndUpdate(_id,
+            { $set: { deletedFor } },
+            { new: true }
+        );
 
         return { status: 200, message: 'Chat deleted succesfully!' }
     } catch (err) {
@@ -51,6 +92,22 @@ const deleteChat = async (_id, deletedFor) => {
         return { status: 500, message: "Unknown server error" };
     }
 }
+
+const restoreChat = async (chatID, userId) => {
+    try {
+        await chatModel.findByIdAndUpdate(chatID,
+            { $set: { deletedFor: null } },
+            { new: true }
+        );
+
+        //destructuring array from getAllDeletedChats
+        const { message: deletedChats } = await getAllDeletedChats(userId);
+        console.log(deletedChats);
+        return { status: 200, message: deletedChats }
+    } catch (err) {
+        console.log(`Error in chat chatService, restoreChat:`, err.message);
+    }
+} 
 
 const getMessages = async (chatID) => {
     try {
@@ -117,12 +174,17 @@ const deleteMessage = async (messageId, roomId, deletedFor) => {
         console.log('Err chatService deleteMessage', err.message);
     }
 }
+
+
 module.exports = {
     createChat,
     getAllChats,
+    getAllDeletedChats,
     deleteChat,
+    restoreChat,
     getMessages,
     sendMessage,
     editMessage,
-    deleteMessage
+    deleteMessage,
+
 }  
