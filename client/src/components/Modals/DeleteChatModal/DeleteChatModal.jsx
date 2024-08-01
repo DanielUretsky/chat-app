@@ -3,7 +3,7 @@ import { SocketContext } from '../../../context/SocketContext';
 import { useTheme } from '../../../context/ThemeContext';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { actions as chatActions } from '../../../redux/slices/chat/chatSlice';
+import { actions as chatActions, setDeletedUserChats } from '../../../redux/slices/chat/chatSlice';
 
 import { motion } from 'framer-motion';
 import { scaleIn } from '../../../utils/animationVariants';
@@ -30,6 +30,9 @@ export const DeleteChatModal = () => {
             _id: currentDeletedChat._id, 
             deletedFor: deleteForAll ? 'all' : currentUserId
         });
+
+       await dispatch(setDeletedUserChats()).unwrap()
+        
         socket.emit('delete-chat', currentDeletedChat._id, deleteForAll);
 
         if(!deleteForAll && 

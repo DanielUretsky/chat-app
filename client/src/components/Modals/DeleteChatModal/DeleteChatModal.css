@@ -15,6 +15,8 @@
 .delete-chat-modal-container__close {
     position: absolute;
     right: 30px;
+
+    cursor: pointer;
 }
 .delete-chat-modal-container__light {
     background-color: var(--white);
@@ -79,7 +81,7 @@
     box-shadow: 0 0 8px 0 rgb(0, 0, 0);
 }
 
-.delete-chat-modal-container__confirm:hover {
+.delete-chat-modal-container__confirm__light:hover {
     color: var(--blue);
     
 }
