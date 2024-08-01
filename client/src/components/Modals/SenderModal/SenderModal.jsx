@@ -6,7 +6,7 @@ import { SenderInfoField } from './SenderInfoField/SenderInfoField';
 import { UserIcon } from '../../Icons/UserIcon/UserIcon';
 
 import { convertImageToBase64 } from '../../../utils/convertImageToBase64';
-import addProfileImageIcon from '../../../assets/icons/add-avatar.png'
+import addPictureIcon from '../../../assets/icons/add-picture.png'
 
 import { useDispatch } from 'react-redux';
 import { updateUser, uploadAvatar } from '../../../redux/slices/userSlice';
@@ -50,8 +50,8 @@ export const SenderModal = ({ closeModalHandler, currentUser }) => {
       <div className="sender-modal-image">
         <label htmlFor="fileInput">
           <img
-            className="sender-modal-image__add-avatar"
-            src={addProfileImageIcon}
+            className={`sender-modal-image__add-avatar ${ theme === 'light' && 'sender-modal-image__add-avatar__light' }`}
+            src={addPictureIcon}
             alt="upload avatar"
           />
         </label>
