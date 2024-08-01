@@ -1,7 +1,7 @@
-import { useEffect, useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 
 import { Outlet, Navigate, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { actions } from '../../redux/slices/userSlice';
 
 import { getCookie, removeCookie } from '../../services/cookiesService';
@@ -14,7 +14,7 @@ export const ProtectedRoute = () => {
     const authenticateUser = async () => {
       try {
         const user = await authenticate(getCookie("accessToken"));
-        console.log(user);
+      
         if(!user) {
           removeCookie("accessToken");
           dispatch(actions.logout(null))
@@ -27,7 +27,6 @@ export const ProtectedRoute = () => {
       }
     }
     authenticateUser();
-
 
   }, );
 
