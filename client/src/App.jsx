@@ -14,7 +14,7 @@ import './App.css'
 
 function App() {
   const { theme } = useTheme();
-  console.log('app', theme);
+  
   return (
     <div className={`app-container ${theme === 'light' && 'app-container__light'}`}>
       <Routes>
