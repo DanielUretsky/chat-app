@@ -25,14 +25,39 @@ const getAllChats = async (req, res) => {
     }
 };
 
+const getAllDeletedChats = async (req, res) => {
+    try {
+        const userId = req.user._id;
+        const response = await chatServices.getAllDeletedChats(userId);
+
+        res.status(response.status).send(response.message);
+    } catch (err) {
+        console.log(`Error in chat controller, getAllDeletedChats:`, err.message);
+    }
+};
+
 const deleteChat = async (req, res) => {
     try {
         const {_id, deletedFor} = req.body.chatData;
-        const response = await chatServices.deleteChat(_id, deletedFor);
+        const userId = req.user._id;
+
+        const response = await chatServices.deleteChat(_id, deletedFor, userId);
 
         res.status(response.status).send(response.message);
     } catch (err) {
         console.log(`Error in chat controller, deleteChat:`, err.message);
+    }
+};
+
+const restoreChat = async (req, res) => {
+    try {
+        const { chatID } = req.params;
+        const userId = req.user._id;
+        const response = await chatServices.restoreChat(chatID, userId);
+
+        res.status(response.status).send(response.message);
+    } catch (err) {
+        console.log(`Error in chat controller, restoreChat:`, err.message);
     }
 }
 
@@ -67,7 +92,7 @@ const editMessage = async (req, res) => {
     } catch (err) {
         console.log(`Error in chat controller, editMessage:`, err.message);
     }
-}
+};
 
 const deleteMessage = async (req, res) => {
     try {
@@ -78,14 +103,16 @@ const deleteMessage = async (req, res) => {
     } catch (err) {
         console.log(`Error in chat controller, deleteMessage:`, err.message);
     }
-}
+};
 
 module.exports = {
     createChat,
     getAllChats,
+    getAllDeletedChats,
     deleteChat,
+    restoreChat,
     getMessages,
     sendMessage,
     editMessage,
-    deleteMessage
+    deleteMessage,
 }
