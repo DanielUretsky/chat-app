@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
-import editIcon from '../../../../assets/icons/edit.png';
-import './SenderInfoField.css';
+import { useState } from 'react'
 import { useTheme } from '../../../../context/ThemeContext';
+
+import editIcon from '../../../../assets/icons/edit.png';
+
+import './SenderInfoField.css';
 
 export const SenderInfoField = ({setNewSenderInfoHandler, name, senderInfo}) => {
     const { theme } = useTheme();
