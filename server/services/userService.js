@@ -33,10 +33,6 @@ const uploadAvatar = async (id, avatar) => {
             { new: true }
         );
 
-        // const user = await userModel.findById(id);
-        // user.image = userAvatar;
-        // await user.save();
-
         const { password, ...userDto} = user._doc;
     
         return {status: 200, message: userDto};
