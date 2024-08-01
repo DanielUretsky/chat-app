@@ -28,7 +28,7 @@ export const Registration = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (logoColor === "'var(--blue)'") setErrockStack([]);
+        if (logoColor === "var(--blue)" || "fff") setErrockStack([]);
 
     }, [logoColor]);
 
@@ -38,7 +38,7 @@ export const Registration = () => {
             return setLogoColor('#cc0000');
         };
 
-        return setLogoColor('var(--blue)');
+        return setLogoColor(theme === 'light' ? 'var(--blue)' : '#fff');
     }
 
     const validatePhoneHandler = (value) => {
@@ -47,7 +47,7 @@ export const Registration = () => {
             return setLogoColor('#cc0000');
         }
 
-        return setLogoColor('var(--blue)');
+        return setLogoColor(theme === 'light' ? 'var(--blue)' : '#fff');
     }
 
     const validatePasswordHandler = (name, value) => {
@@ -67,7 +67,7 @@ export const Registration = () => {
             return setLogoColor('#cc0000')
         };
 
-        return setLogoColor('var(--blue)');
+        return setLogoColor(theme === 'light' ? 'var(--blue)' : '#fff');
     }
 
     const validateFieldsHandler = (name, value) => {
@@ -76,7 +76,7 @@ export const Registration = () => {
             return setLogoColor('#cc0000')
 
         }
-        return setLogoColor('var(--blue)');
+        return setLogoColor(theme === 'light' ? 'var(--blue)' : '#fff');
     }
 
     const validateFormHandler = (targetInput) => {
@@ -87,7 +87,7 @@ export const Registration = () => {
         if (name === "password" || name === "repeatedPassword") return validatePasswordHandler(name, value);
         if (name !== "password" && name !== "repeatedPassword" && name !== "email") return validateFieldsHandler(name, value);
 
-        return setLogoColor('green');
+        return setLogoColor(theme === 'light' ? 'var(--blue)' : '#fff');
     }
 
     const setUserInfoHandleChange = (e) => {
@@ -199,7 +199,7 @@ export const Registration = () => {
                 </div>
 
                 <div className="registration-submit">
-                    <button type='submit' onClick={handleSubmit} disabled={logoColor === 'green' ? false : true}>Submit</button>
+                    <button type='submit' onClick={handleSubmit} disabled={logoColor === 'var(--blue)' || '#fff' ? false : true}>Submit</button>
                     <span style={{color: theme === 'light' ? 'var(--dark-gray)' : 'var(--white)'}}>
                         Already have acccount? <Link
                             style={{
