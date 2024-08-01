@@ -1,8 +1,5 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import ReactDom from 'react-dom'
-
-import { AnimatePresence } from 'framer-motion';
-import { useSelector } from 'react-redux';
 
 import './ModalRoot.css';
 
