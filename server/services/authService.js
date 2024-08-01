@@ -33,9 +33,20 @@ const login = async (userEmail, userPassword) => {
         const decodedPassword = await bcrypt.compare(userPassword, user.password);
         if (!decodedPassword) return { status: 404, message: 'Unknown email or password!' };
 
-        const { password, ...userDto } = user._doc;
+        const {
+            password, //shuoldnt be in token payload
+            image, // base64 format is to large for cookie storage
+            deletedChats, //contains data of chats with messages, user data === to large for token payload
+            ...tokenPayload 
+        } = user._doc;
 
-        const accessToken = tokenService.generateAccessToken(userDto);
+        const {
+            password: noTransporedPassord,
+            image: noTransporedImage,
+            ...userDto
+        } = user._doc;
+
+        const accessToken = tokenService.generateAccessToken(tokenPayload);
         if (!accessToken) return { status: 500, message: 'Unknown server error' };
 
         return {
@@ -51,37 +62,24 @@ const login = async (userEmail, userPassword) => {
     }
 }
 
-// const logout = async (refreshToken) => {
-//     try {
-//         const removedRefreshToken = await tokenService.removeRefreshToken(refreshToken);
-//         if (!removedRefreshToken) return { status: 500, message: 'Unknown server error' };
-
-//         return { status: 200, message: 'Logged out!' };
-//     } catch (err) {
-//         console.log('Err authService logout', err.message);
-//         return { status: 500, message: 'Unknown server error' }
-//     }
-// }
-
 const authenticate = async (accessToken) => {
     try {
-       
-        if(!accessToken) return { status: 401, message: 'Unauthorized!' };
+
+        if (!accessToken) return { status: 401, message: 'Unauthorized!' };
         const response = tokenService.validateAccessToken(accessToken);
-        if(!response) return {status: 401, message: "Unauthorized!"}
+        if (!response) return { status: 401, message: "Unauthorized!" }
 
         const user = await userModel.findById(response._id);
-        const {password, ...userDto} = user._doc;
-        return  {status: 200, message: userDto};
+        const { password, ...userDto } = user._doc;
+        return { status: 200, message: userDto };
     } catch (err) {
         console.log('Err authService authenticate', err.message);
-        if(err.name === "TokenExpiredError") return {status: 401, message: "Unauthorized!"}
+        if (err.name === "TokenExpiredError") return { status: 401, message: "Unauthorized!" }
     }
 }
 
 module.exports = {
     login,
     registration,
-   // logout,
-    authenticate 
+    authenticate
 } 
