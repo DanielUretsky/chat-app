@@ -1,10 +1,13 @@
-import { useDispatch, useSelector } from 'react-redux';
 import { useContext } from 'react';
 import { SocketContext } from '../../../../../context/SocketContext';
 import { useTheme } from '../../../../../context/ThemeContext';
+
+import { useDispatch, useSelector } from 'react-redux';
+
 import { createNewChat } from '../../../../../redux/slices/chat/chatSlice';
 
 import defaultUserAvatar from '../../../../../assets/icons/user-default-avatar.png';
+
 import './ContactItem.css';
 
 export const ContactItem = ({ contact, setFocus }) => {
