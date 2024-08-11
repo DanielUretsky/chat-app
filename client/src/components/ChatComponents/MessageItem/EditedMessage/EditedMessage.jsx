@@ -5,10 +5,10 @@ import { actions } from '../../../../redux/slices/chat/messageSlice';
 import { motion } from 'framer-motion';
 import { slideInLeft } from '../../../../utils/animationVariants';
 
-import closeIcon from '../../../../assets/icons/close.png';
-
-import './EditedMessage.css';
 import { CloseIcon } from '../../../Icons/CloseIcon/CloseIcon';
+
+import { sliceMessage } from '../../../../utils/sliceMessage';
+import './EditedMessage.css';
 
 export const EditedMessage = ({setMessageData, textAreaRef}) => {
   const { theme } = useTheme();
@@ -32,9 +32,9 @@ export const EditedMessage = ({setMessageData, textAreaRef}) => {
     >
         <div className={`edited-message-container-message ${theme === 'light' && 'edited-message-container-message__light'}`}>
             <span className='edited-message-container__edit'>Edit</span>
-            <span className='edited-message-container__text'>{editedCurrentMessage?.body.text}</span>
+            <span className='edited-message-container__text'>{sliceMessage(editedCurrentMessage?.body.text, 76, 68)}</span>
         </div>
-        <CloseIcon closeFunc={closeEditedMessageHandler}/>
+        <CloseIcon func={closeEditedMessageHandler}/>
     </motion.div>
   )
 }
