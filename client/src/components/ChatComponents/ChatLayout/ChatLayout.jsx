@@ -16,47 +16,28 @@ import { DeleteMessageModal } from '../../Modals/DeleteMessageModal/DeleteMessag
 import './ChatLayout.css';
 
 export const ChatLayout = ({ currentChat }) => {
-  const dispatch = useDispatch();
+  const { socket } = useContext(SocketContext);
+  const { theme } = useTheme();
 
   const room = currentChat._id;
+
   const currentUser = useSelector(state => state.user.user);
   const currentMessages = useSelector(state => state.chat.currentMessages);
   const isDeleteModalOpen = useSelector(state => state.message.isDeleteModalOpen);
+  const dispatch = useDispatch();
 
-  const { socket } = useContext(SocketContext);
-  const { theme } = useTheme();
   const [messages, setMessages] = useState([]);
   const [messageData, setMessageData] = useState("");
 
   const messageEndListRef = useRef(null);
-  const messagesRef = useRef([]);
-  // ---- PLAN ----
-  // realized mechanism to save messages not on button click !important
-  // useEffect(() => {
-
-  //   dispatch(getChatMessages(room));
-
-  // }, [currentChat, room, messages, dispatch]);
-
-  // useEffect(() => {
-  //   const getMessages = async () => {
-  //     await dispatch(getChatMessages(room)).unwrap();
-  //     setMessages(currentMessages);
-
-  //   }
-  //   getMessages();
-  //   console.log(messages);
-  // }, [])
-
+  
   useEffect(() => {
     const getMessages = async () => {
       const messagesArray = await dispatch(getChatMessages(room)).unwrap();
-      console.log(messagesArray);
       setMessages(messagesArray);
-
-      //console.log(messages);
     }
-    getMessages()
+
+    getMessages();
   }, [currentChat, room, dispatch])
 
   useEffect(() => {
@@ -64,18 +45,10 @@ export const ChatLayout = ({ currentChat }) => {
     dispatch(getChatMessages(room));
 
     if (socket) {
-      socket?.emit('join_room', room);
-
-      socket?.on('user-joined', (room) => {
-        //console.log(room);
-        // console.log(currentMessages);
-      });
-
+    
       socket?.on('receive_message', (message) => {
         if (message.roomID === room) {
-          // const updatedMessages = [...messagesRef.current, message];
-          // messagesRef.current = updatedMessages;
-          //console.log(',esese', message);
+       
           setMessages(prev => [...prev, {
             body: {
               deleteForEveryone: false,
@@ -89,7 +62,6 @@ export const ChatLayout = ({ currentChat }) => {
         }
       });
 
-      console.log(messages);
       socket?.on('message-deleted', (room) => {
         dispatch(getChatMessages(room));
       });
@@ -103,21 +75,13 @@ export const ChatLayout = ({ currentChat }) => {
       socket?.off('receive_message');
       socket?.off('message-deleted');
       socket?.off('message-updated');
-      socket?.emit('leave_room', room);
-
-      socket.on('room_leaved', (room) => {
-        // console.log(messagesRef.current);
-      });
-
-     
     }
-  }, [socket, currentChat, room, messages, dispatch])
-
-  // messages to see message in real time, should be changed
+  }, [socket, room, messages, dispatch])
 
   useEffect(() => {
     messageEndListRef.current?.scrollIntoView({ behavior: 'auto' });
-  }, [currentMessages])
+  }, [currentMessages]);
+
   return (
     <div
       className={`chat-layout-container ${theme === 'light' && 'chat-layout-container__light'}`}
@@ -135,7 +99,8 @@ export const ChatLayout = ({ currentChat }) => {
 
       <div className="chat-layout-main">
         {
-          messages?.map((message) => {
+          currentMessages?.length > 0 ?
+          currentMessages?.map((message) => {
             if (!message?.body?.deletedForEveryone &&
               !(currentUser?._id === message?.sender && message.body?.deletedForSender)) {
               return (
@@ -148,6 +113,8 @@ export const ChatLayout = ({ currentChat }) => {
               )
             }
           })
+          :
+          <span style={{margin: '0 auto'}}>No messages yet</span>
         }
         <div ref={messageEndListRef}></div>
       </div>
