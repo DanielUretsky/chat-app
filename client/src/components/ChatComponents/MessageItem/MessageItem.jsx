@@ -8,18 +8,17 @@ import { MessageImage } from './MessageImage/MessageImage';
 
 import { circularTransitionRightToBottom } from '../../../utils/animationVariants';
 
-import messageDropDownIcon from '../../../assets/icons/message-drop-down.png';
+import { DropDownIcon } from '../../Icons/DropDownIcon/DropDownIcon';
 
 import './MessageItem.css';
-import { DropDownIcon } from '../../Icons/DropDownIcon/DropDownIcon';
 
 export const MessageItem = ({ message, currentUserId, setMessageData }) => {
   const { theme } = useTheme();
   const messageFromReceiver = currentUserId !== message.sender;
-  const dispatch = useDispatch();
-
+  
   const isDeleteModalOpen = useSelector(state => state.message.isDeleteModalOpen);
   const isEditModalOpen = useSelector(state => state.message.isEditModalOpen);
+  const dispatch = useDispatch();
 
   const [showDropDownIcon, setShowDropDownIcon] = useState(false);
   const [dropDownOpen, setDropDownOpen] = useState(false);
@@ -64,23 +63,18 @@ export const MessageItem = ({ message, currentUserId, setMessageData }) => {
     >
       <div className={`corner ${messageFromReceiver ? 'corner-left' : 'corner-right'}`}></div>
       {
-         dropDownIconCondition &&  
-          <DropDownIcon 
-            dropdDownFunc={openDropDownHandler}
-            className={`message-drop-down-icon ${theme === 'light' && 'message-drop-down-icon__light'}`}
-          /> //<img
-        //   className={`message-drop-down-icon ${theme === 'light' && 'message-drop-down-icon__light'}`}
-        //   src={messageDropDownIcon}
-        //   alt="drop-down"
-        //   onClick={openDropDownHandler}
-        // />
+        dropDownIconCondition &&
+        <DropDownIcon
+          dropdDownFunc={openDropDownHandler}
+          className={`message-drop-down-icon ${theme === 'light' && 'message-drop-down-icon__light'}`}
+        />
       }
 
       <AnimatePresence>
         {
           dropDownOpen &&
           <motion.div
-            className={`message-drop-down-container ${ theme == 'light' && 'message-drop-down-container__light'}`}
+            className={`message-drop-down-container ${theme == 'light' && 'message-drop-down-container__light'}`}
             variants={circularTransitionRightToBottom}
             initial='initial'
             animate='animate'

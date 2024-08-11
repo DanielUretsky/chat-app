@@ -5,7 +5,6 @@
     width: fit-content;
     max-width: 500px;
     display: flex;
-    
     overflow-wrap: break-word;
     flex-direction: column; 
 }
@@ -117,13 +116,13 @@
 }
 
 .left .message__text {
-
    margin-left: 35px;
-   
+   word-break: break-all;
 }
 
 .right .message__text {
     margin-right: 35px; 
+    word-break: break-all; 
  }
 
 .right .message__time {
