@@ -19,7 +19,7 @@
 
 .chat-list-item-container:hover {
    
-    background-color: rgba(240, 248, 255, 0.219);
+    background-color: var(--gray-opacity);
 }
 
 .chat-list-item-container__light {
@@ -33,12 +33,13 @@
 
 .chat-list-item-container__delete-icon {
     position: absolute;
-    top: 0;
+    top: 2px;
     right: 0;
 
     width: 20px;
     height: 20px;
 }
+
 .chat-list-item-container__user-image {
     width: 60px;
     height: 60px;
@@ -50,15 +51,14 @@
     
     width: 100%;
     height: 65px;
-    
+    display: flex;
+    flex-direction: column;
     border-bottom: 1px solid var(--light-gray); 
 }
 
 .chat-list-item-last-message {
-    display: flex;
-    
-    margin-left: 5px;
-    color: rgb(112, 114, 114);
+    margin-top: 5px;
+    color: rgb(143, 141, 141);
 }
 
 @media screen and (max-width: 770px) {

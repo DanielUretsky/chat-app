@@ -1,21 +1,45 @@
-import { useState, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import { SocketContext } from '../../../context/SocketContext';
+import { useTheme } from '../../../context/ThemeContext';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { actions } from "../../../redux/slices/chat/chatSlice";
 
 import { UserIcon } from '../../Icons/UserIcon/UserIcon';
 
 import deleteChatIcon from '../../../assets/icons/delete.png';
 
+import { sliceMessage } from '../../../utils/sliceMessage';
 import './ChatListItem.css';
-import { useTheme } from '../../../context/ThemeContext';
 
 
 export const ChatListItem = ({ chat }) => {
   const member = chat?.members[0];
+
+  const messageFromReceiver = chat?.messages.filter(message => message.sender !== currentUserId);
+  const lastMessageFromReceiver = messageFromReceiver && messageFromReceiver[messageFromReceiver.length - 1]?.body.text;
+
   const { theme } = useTheme();
+  const {socket} = useContext(SocketContext)
+
+  const currentUserId = useSelector(state => state.user.user?._id); 
+  
   const [isHover, setIsHover] = useState(false);
+  const [lastMessage, setLastMessage] = useState(sliceMessage(lastMessageFromReceiver, 28, 20));
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    socket?.on('last-message', (room, message) => {
+      if(chat._id === room && currentUserId !== message._id) {
+        !message.images && setLastMessage(sliceMessage(message.text, 28, 20))
+      }
+    });
+    
+    return () => {
+      socket?.off('last-message');
+    }
+  }, [lastMessage, socket]);
 
   const openDeletedChatModalHandler = async (e) => {
     e.stopPropagation();
@@ -53,8 +77,10 @@ export const ChatListItem = ({ chat }) => {
       }
       
       <div className="chat-list-item-user">
-        <span className=''>{member?.username}</span>
+        <span>{member?.username}</span>
+        <span className='chat-list-item-last-message'>{lastMessage}</span>
       </div>
+
     </div>
   )
 }
