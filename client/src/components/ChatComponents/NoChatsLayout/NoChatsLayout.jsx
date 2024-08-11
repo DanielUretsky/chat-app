@@ -1,8 +1,8 @@
 import { useTheme } from '../../../context/ThemeContext'
 import { LogoIcon } from '../../Icons/LogoIcon/LogoIcon'
 
-
 import './NoChatsLayout.css'
+
 export const NoChatsLayout = () => {
   const { theme } = useTheme()
   return (
