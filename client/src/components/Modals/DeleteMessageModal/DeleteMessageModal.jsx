@@ -39,7 +39,7 @@ export const DeleteMessageModal = () => {
     >
       <CloseIcon 
         className={'delete-message-modal-container__close-icon'} 
-        closeFunc={() => dispatch(actions.closeDeleteMessageModal())}
+        func={() => dispatch(actions.closeDeleteMessageModal())}
       />
       <p>Delete message?</p>
 
