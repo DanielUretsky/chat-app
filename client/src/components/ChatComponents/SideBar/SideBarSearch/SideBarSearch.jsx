@@ -1,15 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useTheme } from '../../../../context/ThemeContext';
 
 import { AnimatePresence, motion, } from 'framer-motion';
 
-import { searchContacts } from '../../../../services/userService';
 import { ContactItem } from './ContactItem/ContactItem';
-
-import { growFromBottom } from '../../../../utils/animationVariants';
 import { InputLoader } from '../../../Loaders/InputLoader';
+
+import { searchContacts } from '../../../../services/userService';
+import { growFromBottom } from '../../../../utils/animationVariants';
+
 import './SideBarSearch.css';
-import { useSelector } from 'react-redux';
 
 export const SideBarSearch = () => {
     const { theme } = useTheme();

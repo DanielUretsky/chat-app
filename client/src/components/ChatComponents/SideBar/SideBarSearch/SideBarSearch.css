@@ -7,13 +7,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    
 
-    border-bottom: 1px solid var(--light-gray);
-}
-
-.side-bar-search__light {
-    border-bottom-color: var(--blue-gradient);
 }
 
 .search-chat {
@@ -59,14 +53,16 @@
 }
 
 .contacts-container::-webkit-scrollbar {
-    width: 10px;
+    width: 5px;
+    
     
 }
 
-.contacts-container::-webkit-scrollbar-track {
-    background: #1b1a1a; 
-  }
-
 .contacts-container::-webkit-scrollbar-thumb {
-    background: #555; 
+    background: var(--purple-opacity);
+    border-radius: 5px;
+}
+
+.contacts-container__light::-webkit-scrollbar-thumb {
+    background: var(--blue-opacity);
 }
