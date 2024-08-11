@@ -16,6 +16,11 @@ export const circularTransitionRightToBottom = {
     exit: { clipPath: "circle(0% at 100% 0%)" }
 }
 
+export const circularTransitionLeftToBottom = {
+    initial: { clipPath: "circle(0% at 0% 0%)" },
+    animate: { clipPath: "circle(150% at 0% 50%)" },
+    exit: { clipPath: "circle(0% at 0% 0%)" }
+} 
 export const slideInLeft = {
     initial: { x: -300, opacity: 0 },
     animate: { x: 0, opacity: 1 },
