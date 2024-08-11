@@ -12,6 +12,7 @@ const { app, io, server} = require('./sockets/socket');
 const authRouter = require('./routers/authRouter');
 const userRouter = require('./routers/userRouter');
 const chatRouter = require('./routers/chatRouter');
+const notificationsRouter = require('./routers/notificationsRouter');
 
 // configs/DB
 conncetToMongoDB();
@@ -26,6 +27,7 @@ app.use(cookieParser());
 app.use('/auth', authRouter);
 app.use('/users', userRouter);
 app.use('/chat', chatRouter);
+app.use('/notifications', notificationsRouter);
 
 server.listen(PORT, () => {
     console.log(`Server is ok. http://localhost:${PORT}`);
