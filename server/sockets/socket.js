@@ -31,13 +31,14 @@ io.on('connection', (socket) => {
         io.emit('chat-deleted', room, deleteFor);
     });
 
-    socket.on('restore-chat', () => {
-        io.emit('chat-restored');
+    socket.on('restore-chat', (chatId) => {
+        io.emit('chat-restored', chatId);
     })
 
-    socket.on('restore-chat-request', (toUserId, fromUsername, deletedChatId) => {
-        console.log(deletedChatId);
-        io.emit(`send-restore-request-${toUserId}`, fromUsername, deletedChatId);
+    socket.on('restore-chat-request', (toUserId) => {
+        //console.log(deletedChatId);
+        //fromUsername, deletedChatId
+        io.emit(`send-restore-request-${toUserId}`);
     })
 
     socket.on('send_message', (room, message) => { 
