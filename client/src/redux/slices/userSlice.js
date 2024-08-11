@@ -3,7 +3,6 @@ import { updateUserService, uploadAvatarService } from "../../services/userServi
 
 const initialState = {
     user: null,
-    isAuth: false
 };
 
 export const updateUser = createAsyncThunk(
