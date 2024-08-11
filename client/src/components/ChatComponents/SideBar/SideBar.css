@@ -14,7 +14,7 @@
     width: 100%;
     height: 70px;
     background-color: var(--light-gray);
-  
+
 }
 
 .side-bar-header__light {
@@ -28,14 +28,99 @@
 
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 10px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+   
+}
+
+.side-bar-contacts__empty-contact-list,
+.side-bar-contacts__empty-deleted-chats-list {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.side-bar-container__light .side-bar-contacts__empty-deleted-chats-list {
+    color: var(--light-gray);
+}
+
+
+.side-bar-contacts::-webkit-scrollbar {
+    width: 5px;
+}
+
+.side-bar-contacts::-webkit-scrollbar-thumb {
+    background: var(--purple-opacity);
+    border-radius: 5px;
+} 
+
+.side-bar-container__light .side-bar-contacts::-webkit-scrollbar-thumb {
+    background: var(--blue-opacity);
+} 
+
+.side-bar-contacts-nav {
+    width: 100%;
+    padding: 15px 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+ 
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.side-bar-container__light .side-bar-contacts .side-bar-contacts-nav {
+    border-bottom-color: var(--blue-gradient);
+    color: var(--blue);
+}
+
+.side-bar-contacts-nav__chats,
+.side-bar-contacts-nav__deleted-chats {
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+.side-bar-contacts-nav__chats.active,
+.side-bar-contacts-nav__deleted-chats.active {
+    border-left: 3px solid var(--purple);
+}
+
+.side-bar-contacts-nav__chats:hover,
+.side-bar-contacts-nav__deleted-chats:hover {
+    
+    border-left: 3px solid var(--purple);
+}
+
+.side-bar-container__light .side-bar-contacts 
+.side-bar-contacts-nav 
+.side-bar-contacts-nav__chats:hover,
+.side-bar-container__light 
+.side-bar-contacts .side-bar-contacts-nav 
+.side-bar-contacts-nav__deleted-chats:hover {
+    border-left: 3px solid var(--blue);
+}
+
+
+.side-bar-container__light .side-bar-contacts 
+.side-bar-contacts-nav 
+.side-bar-contacts-nav__chats.active,
+.side-bar-container__light 
+.side-bar-contacts .side-bar-contacts-nav 
+.side-bar-contacts-nav__deleted-chats.active {
+    border-left: 3px solid var(--blue);
 }
 
 .side-bar-theme-toggle {
     width: 100%;
     height: 70px;
-   
-    display: flex;  
+
+    display: flex;
     align-items: center;
     justify-content: flex-end;
 }
@@ -44,6 +129,5 @@
     width: 35px;
     height: 35px;
 
-    margin-right: 15px; 
+    margin-right: 15px;
 }
-
