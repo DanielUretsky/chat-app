@@ -3,7 +3,6 @@ import { baseRequest } from "../axios/axiosConfig";
 export const searchContacts = async (email) => {
     try {
         const { data: response } = await baseRequest.post('/users/contacts', { email });
-
         return response;
     } catch (err) {
         console.log(err);
@@ -32,7 +31,6 @@ export const uploadAvatarService = async (userAvatar) => {
 export const getUserChats = async () => {
     try {
         const { data: response } = await baseRequest.get('/chat/get-chats');
-
         return response;
     } catch (err) {
         console.log(err);
@@ -42,7 +40,6 @@ export const getUserChats = async () => {
 export const getDeletedUserChats = async () => {
     try {
         const { data: response } = await baseRequest.get(`chat/get-deleted-chats`);
-        console.log(response);
         return response;
     } catch (err) {
         console.log(err);
@@ -52,7 +49,6 @@ export const getDeletedUserChats = async () => {
 export const createNewChatService = async (senderId, receiverId) => {
     try {
         const response = await baseRequest.post(`/chat/create-chat/${senderId}/${receiverId}`);
-
         return response;
     } catch (err) {
         if (err.response.status === 409) return (err.response);
@@ -71,7 +67,7 @@ export const deleteChatService = async (chatData) => {
 
 export const restoreChatService = async (chatID) => {
     try {
-        const {data: response} = await baseRequest.post(`/chat/restore-chat/${chatID}`);
+        const { data: response } = await baseRequest.post(`/chat/restore-chat/${chatID}`);
         console.log('restore', response);
         return response;
     } catch (err) {
