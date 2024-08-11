@@ -16,13 +16,12 @@ import './ChatListItem.css';
 export const ChatListItem = ({ chat }) => {
   const member = chat?.members[0];
 
-  const messageFromReceiver = chat?.messages.filter(message => message.sender !== currentUserId);
-  const lastMessageFromReceiver = messageFromReceiver && messageFromReceiver[messageFromReceiver.length - 1]?.body.text;
-
   const { theme } = useTheme();
   const {socket} = useContext(SocketContext)
-
+  
   const currentUserId = useSelector(state => state.user.user?._id); 
+  const messageFromReceiver = chat?.messages.filter(message => message.sender !== currentUserId);
+  const lastMessageFromReceiver = messageFromReceiver && messageFromReceiver[messageFromReceiver.length - 1]?.body.text;
   
   const [isHover, setIsHover] = useState(false);
   const [lastMessage, setLastMessage] = useState(sliceMessage(lastMessageFromReceiver, 28, 20));
