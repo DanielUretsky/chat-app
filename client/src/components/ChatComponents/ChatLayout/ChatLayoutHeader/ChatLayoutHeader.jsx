@@ -13,16 +13,20 @@ import { UserIcon } from '../../../Icons/UserIcon/UserIcon';
 
 import dropDownIcon from '../../../../assets/icons/drop-down.png';
 
-import './ChatLayoutHeader.css';
 import { useTheme } from '../../../../context/ThemeContext';
 
+import './ChatLayoutHeader.css';
+
 export const ChatLayoutHeader = () => {
-    const dispatch = useDispatch();
-    const currentChat = useSelector(state => state.chat.currentChat);
-    const currentReciever = currentChat.members[0];
     const { theme } = useTheme();
+
     const [dropDownOpen, setDropDownOpen] = useState(false);
     const [receiverModalOpen, setReceiverModalOpen] = useState(false);
+
+    const currentChat = useSelector(state => state.chat.currentChat);
+    const currentReciever = currentChat.members[0];
+    
+    const dispatch = useDispatch();
 
     const openModalHandler = () => {
         setReceiverModalOpen(prev => !prev);
@@ -33,7 +37,7 @@ export const ChatLayoutHeader = () => {
         setReceiverModalOpen(prev => !prev);
     }
 
-    const leaveChatHandler = () => {
+    const leaveChatHandler = () => {      
         dispatch(chatActions.leaveChat());
     }
     return (
