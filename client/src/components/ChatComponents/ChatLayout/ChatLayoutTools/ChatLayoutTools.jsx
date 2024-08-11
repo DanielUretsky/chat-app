@@ -21,8 +21,7 @@ import addPictureIcon from '../../../../assets/icons/add-picture.png';
 
 import './ChatLayoutTools.css';
 
-
-export const ChatLayoutTools = ({ messageData, setMessageData, setMessages }) => {
+export const ChatLayoutTools = ({ messageData, setMessageData }) => {
     const dispatch = useDispatch();
     const { socket } = useContext(SocketContext);
     const { theme } = useTheme();
@@ -82,7 +81,7 @@ export const ChatLayoutTools = ({ messageData, setMessageData, setMessages }) =>
         };
 
         //to save message in DB
-        //await sendMessageService(message);
+        await sendMessageService(message);
 
         await socket?.emit("send_message", room, message);
 
