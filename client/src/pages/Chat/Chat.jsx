@@ -8,8 +8,9 @@ import { SideBar } from "../../components/ChatComponents/SideBar/SideBar";
 import { ChatLayout } from "../../components/ChatComponents/ChatLayout/ChatLayout";
 import { NoChatsLayout } from "../../components/ChatComponents/NoChatsLayout/NoChatsLayout";
 
-import './Chat.css';
 import { restoreChat, setUserChats } from "../../redux/slices/chat/chatSlice";
+import { getAllNotifications } from "../../redux/slices/chat/notificationsSlice";
+import './Chat.css';
 
 export const Chat = () => {
   const { socket } = useContext(SocketContext);
@@ -22,15 +23,8 @@ export const Chat = () => {
   useEffect(() => {
     room && socket?.emit('join_room', room);
 
-    socket?.on(`send-restore-request-${currentUser?._id}`, async (fromUsername, deletedChatId) => {
-      if (confirm(`${fromUsername} wants to restore chat with him`)) {
-        console.log(deletedChatId);
-        await dispatch(restoreChat(deletedChatId)).unwrap();
-
-        socket?.emit('restore-chat');
-
-       await dispatch(setUserChats()).unwrap();
-      }
+    socket?.on(`send-restore-request-${currentUser?._id}`, async () => {
+      await dispatch(getAllNotifications()).unwrap();
     });
     return () => {
       room && socket?.emit('leave_room', room);
