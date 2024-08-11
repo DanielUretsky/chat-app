@@ -53,7 +53,7 @@ export const DeleteChatModal = () => {
         >
             <CloseIcon 
                 className={'delete-chat-modal-container__close'} 
-                closeFunc={() => dispatch(chatActions.closeDeletedChatModal())}
+                func={() => dispatch(chatActions.closeDeletedChatModal())}
             />
             <p>Delete this chat?</p>
             <label htmlFor="deleteForReceiver">
