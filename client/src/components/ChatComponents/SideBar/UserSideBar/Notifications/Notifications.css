@@ -1,0 +1,58 @@
+.notifications-container {
+    position: absolute;
+    top: 55px;
+    left: 13px;
+    z-index: 1;
+
+    width: 300px;
+    min-height: 100px;
+    display: flex;
+    
+   
+    max-height: 300px;
+
+    display: flex;
+    flex-direction: column;
+
+    box-shadow: 0 0 5px 0 var(--purple);
+    background-color: var(--gray);
+
+    overflow-x: auto;
+}
+
+.notifications-container span {
+    margin: 0 auto;
+    margin-top: calc(50px - 10px);
+}
+
+.notifications-container::-webkit-scrollbar {
+    width: 5px;
+    
+}
+
+.notifications-container::-webkit-scrollbar-thumb {
+    background: var(--purple-opacity);
+    border-radius: 5px;
+} 
+
+.notifications-container__light::-webkit-scrollbar-thumb {
+    background: var(--white);
+}
+
+.notifications-container span {
+    font-size: 0.8rem;
+}
+
+.notifications-container__light {
+    box-shadow: 0 0 5px 0 var(--blue);
+    background: var(--blue-gradient);
+}
+
+
+@media screen and (max-width: 510px) {
+    .notifications-container {
+        width: 250px;
+        top: 70px;
+        left: -19px
+    }
+}
