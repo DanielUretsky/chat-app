@@ -1,5 +1,4 @@
 import { baseRequest } from '../axios/axiosConfig';
-import { getCookie, removeCookie, setCookie } from './cookiesService';
 
 
 export const registration = async (userObj) => {
@@ -13,7 +12,6 @@ export const registration = async (userObj) => {
         console.log(err);
 
         if (err.response?.status === 422) {
-            //console.log(err.response.data.split(','))[0];
             console.log(err.response.data);
             const arrErrors = err.response.data.split(',')[0]
             const firstError = [...arrErrors.split(':')];
