@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { ModalRoot } from '../../../Modals/ModalRoot';
 import { MessageImageModal } from '../../../Modals/MessageImageModal/MessageImageModal';
 
 import './MessageImage.css';
-import { useEffect } from 'react';
 export const MessageImage = ({image}) => {
     const [messageImageModalOpen, setMessageImageModalOpen] = useState(false);
     const [imageWidth, setImageWidth] = useState(100);
@@ -23,6 +22,8 @@ export const MessageImage = ({image}) => {
         if(height > 120) setImageHeight(120);
         else setImageHeight(height);
     }, [])
+
+    
   return (
     <div>
         {messageImageModalOpen && 
