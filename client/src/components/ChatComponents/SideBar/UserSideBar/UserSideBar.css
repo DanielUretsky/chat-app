@@ -29,8 +29,16 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
-
+    
     cursor: pointer;
+}
+
+.side-bar-user .user .user-avatar:hover {
+    box-shadow: 0 0 8px 0 var(--purple-opacity);
+}
+
+.side-bar-user .user .user-avatar__light:hover {
+    box-shadow: 0 0 8px 0 var(--blue);
 }
 
 .side-bar-user .user .user-info {
@@ -50,22 +58,42 @@
 }
 
 .user-tools {
+    position: relative;
     width: fit-content;
     height: 70px;
 
     display: flex;
     align-items: center;
     justify-content: flex-end;
-
+    /* background-color: aqua; */
 }
 
-.user-tools .logout {
+.notifications-count {
+    position: absolute;
+    top: 15px;
+    left: 16px;
+    width: 15px;
+    height: 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    font-size: 0.7rem;
+    background-color: red;
+}
+
+.user-tools .logout,
+.user-tools .notifications {
+    
     width: 30px;
     height: 30px;
     margin-right: 14px;
     filter: drop-shadow(0 0 10px var(--purple-opacity));
     cursor: pointer;
 }
+
 
 @media screen and (max-width: 1050px) {
     .side-bar-user .user .user-info { 
@@ -82,6 +110,14 @@
     }
 }
 
+@media screen and (max-width: 750px) {
+    .user-tools .logout,
+    .user-tools .notifications {
+        width: 25px;
+        height: 25px;
+    }
+}
+
 @media screen and (max-width: 660px) {
     .user-info .user-info__username {
         display: none;
@@ -94,7 +130,17 @@
     .user-tools {
         width: 0;
     }
+    
+    .notifications-count { 
+        position: absolute;
+        left: -17px;
+        top: 42px;
 
+        width: 10px;
+        height: 10px;
+
+        font-size: 0.6rem;
+    }
     .user-tools .logout {
         position: absolute;
         top: 5px;
@@ -104,6 +150,17 @@
         height: 20px;
         margin-right: 0px;
     }
+
+    .user-tools .notifications {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+
+        right: -5px;
+        bottom: 5px;
+    }
+
+    
 
     .side-bar-user .user {
         width: 100%;

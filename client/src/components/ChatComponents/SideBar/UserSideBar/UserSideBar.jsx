@@ -1,32 +1,40 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { useState } from 'react';
+import { useTheme } from '../../../../context/ThemeContext';
 import { useNavigate } from 'react-router-dom';
+
+import { AnimatePresence, motion } from 'framer-motion';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { actions as userActions } from '../../../../redux/slices/userSlice';
 import { actions as modalActions } from '../../../../redux/slices/modalSlice';
 import { actions as chatActions } from '../../../../redux/slices/chat/chatSlice';
 
-import { logout } from '../../../../services/authService';
 import { removeCookie } from '../../../../services/cookiesService';
 
+import { Notifications } from './Notifications/Notifications';
 import { ModalRoot } from '../../../Modals/ModalRoot';
-
-import { UserIcon } from '../../../Icons/UserIcon/UserIcon';
 import { SenderModal } from '../../../Modals/SenderModal/SenderModal';
+import { UserIcon } from '../../../Icons/UserIcon/UserIcon';
+
+import notificationsIcon from '../../../../assets/icons/notification.png'
 import logoutIcon from '../../../../assets/icons/logout.png';
 
-
 import './UserSideBar.css';
-import { useState } from 'react';
 
 export const UserSideBar = () => {
+    const { theme } = useTheme();
+
     const currentUser = useSelector(state => state.user.user);
+    const notifications = useSelector(state => state.notifications.notifications);
+
+    const [currentUserModalOpen, setCurrentUserModalOpen] = useState(false);
+    const [notificationsOpen, setNotificationsOpen] = useState(false);
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const [currentUserModalOpen, setCurrentUserModalOpen] = useState(false);
 
-    const logoutHandler =  () => {
+    const logoutHandler = () => {
         try {
             removeCookie('accessToken');
             dispatch(chatActions.leaveChat());
@@ -68,8 +76,8 @@ export const UserSideBar = () => {
                 >
                     <UserIcon
                         userImage={currentUser?.image}
-                        className={'user-avatar'}
-                        
+                        className={`user-avatar ${theme === 'light' && 'user-avatar__light'}`}
+
                     />
                 </div>
                 <div className='user-info'>
@@ -79,6 +87,13 @@ export const UserSideBar = () => {
             </div>
 
             <div className="user-tools">
+
+                <img
+                    src={notificationsIcon}
+                    alt="notifications"
+                    className='notifications'
+                    onClick={() => setNotificationsOpen(prev => !prev)}
+                />
                 <motion.img
                     className='logout'
                     src={logoutIcon}
@@ -88,6 +103,19 @@ export const UserSideBar = () => {
                     whileHover={{ scale: 1.02 }}
                     onClick={logoutHandler}
                 />
+
+                {notifications?.length > 0 &&
+                    <div className="notifications-count">
+                        {notifications?.length}
+                    </div>
+                }
+
+                <AnimatePresence >
+                    {
+                        notificationsOpen &&
+                        <Notifications />
+                    }
+                </AnimatePresence>
             </div>
 
         </div>
